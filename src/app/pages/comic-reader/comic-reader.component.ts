@@ -149,9 +149,12 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   pageInputChange(): void {
     this.InputNumber = parseInt(this.inputNumber.nativeElement.value);
     if (this.InputNumber > this.maxPages) {
-      this.inputNumber.nativeElement.value = String(this.maxPages);
+      this.inputNumber.nativeElement.value = "";
+      this.pageNumber=this.maxPages;
       this.renderPage(this.maxPages);
     } else {
+      this.inputNumber.nativeElement.value = "";
+      this.pageNumber = this.InputNumber
       this.renderPage(this.InputNumber);
     }
   }
