@@ -4,49 +4,29 @@
   {{ title }}
 </h1>
 
-<div id="pdf-container" #pdfContainter (click)="pageChangeOnClick($event, pdfContainter)">
-  <canvas #pdfCanvas></canvas>
-</div>
+<div class="Container">
+  <div id="pdf-container"  #pdfContainter (click)="pageChangeOnClick($event, pdfContainter)">
+    <canvas class="normal" style="cursor:pointer" #pdfCanvas></canvas>
+  </div>
 
-<div id="BottomButtons">
-  <div class="rating-section">
-    <span class="label">Rating:</span>
-    <div class="stars">
-      <span
-        *ngFor="let star of stars"
-        class="star"
-        [ngClass]="getStarClass(star)"
-      >
-        ★
-      </span>
+  <div id="BottomButtons">
+    <div>
+    <app-button text="Pantalla completa"  buttonWidth="10vw" buttonHeight="5vh" textSize="0.85rem" (buttonClick)="fullscreen()"></app-button>
     </div>
-    <span class="rating-value">{{ rating }} / 5</span>
-  </div>
 
-  <div id="Pagebuttons">
-    <button class="page_button" (click)="prevPage()"><</button>
-    <input id="PageNumber" #InputNumber type="number" min="1" max="{{ maxPages }}" (keydown.enter)="pageInputChange()" [placeholder]="pageNumber">
-    <button class="page_button" (click)="nextPage()">></button>
-  </div>
-
-  <div class="icons-section">
-    <div class="icon" *ngFor="let icon of icons">
-      <img [src]="icon.url" [alt]="icon.name" />
+    <div id="Pagebuttons">
+      <button class="page_button" (click)="prevPage()"><</button>
+      <input id="PageNumber" #InputNumber type="text" min="1" max="{{ maxPages }}"
+          (input)="numberChecker()"   (keydown.enter)="pageInputChange()" [placeholder]="pageNumber">
+      <button class="page_button" (click)="nextPage()">></button>
     </div>
+    <app-action-icons></app-action-icons>
   </div>
 </div>
 
-<div class="comment-section">
-  <app-comment
-    *ngFor="let comment of comments"
-    [userIcon]="defaultUserIcon"
-    [username]="defaultUsername"
-    [comment]="comment.comment">
-  </app-comment>
-</div>
-
-<div class="center-container">
-  <app-button text="ADD YOURS"></app-button>
-</div>
+<app-comments-section
+  [comicId]="comicId"
+  [currentUserId]="currentUserId">
+</app-comments-section>
 
 <app-footer></app-footer>
