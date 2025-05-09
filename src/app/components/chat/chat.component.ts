@@ -23,8 +23,8 @@ import {ChatCommentComponent} from '../chat-comment/chat-comment.component';
   styleUrl: './chat.component.scss'
 })
 export class ChatComponent implements OnInit,OnDestroy {
-  @Input() discussionId: string = '';
-  @Input() currentUserId: string = '';
+  @Input() discussionId!: string;
+  @Input() currentUserId!: string;
 
   comments: Chat[] = [];
   showCommentForm: boolean = false;

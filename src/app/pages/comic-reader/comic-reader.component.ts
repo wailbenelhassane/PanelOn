@@ -46,8 +46,10 @@ export class ComicReaderComponent implements OnInit, OnChanges {
 
   constructor(
     private route: ActivatedRoute,
-    private appService: AppService
-  ) {
+    private appService: AppService,
+
+  )
+  {
     pdfjsLib.GlobalWorkerOptions.workerSrc = '../../assets/pdf.worker.mjs';
   }
 
