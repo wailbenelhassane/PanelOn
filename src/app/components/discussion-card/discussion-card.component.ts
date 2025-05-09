@@ -2,12 +2,13 @@ import {Component, Input, OnInit} from '@angular/core';
 import {Chat, Discussion} from '../../models/discussion';
 import {DatePipe} from '@angular/common';
 import {Router} from '@angular/router';
+import {TranslateModule, TranslatePipe} from '@ngx-translate/core';
 import {AppService} from '../../app.service';
 
 @Component({
   selector: 'app-discussion-card',
   templateUrl: './discussion-card.component.html',
-  imports: [DatePipe],
+  imports: [DatePipe, TranslatePipe],
   styleUrl: './discussion-card.component.scss'
 })
 export class DiscussionCardComponent implements OnInit{
