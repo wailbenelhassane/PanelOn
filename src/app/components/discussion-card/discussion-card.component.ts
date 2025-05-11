@@ -27,6 +27,7 @@ export class DiscussionCardComponent implements OnInit{
 
   this.appService.getChatByDiscussionId(this.discussion.id!).subscribe(chat=>
   this.participants = chat.length.toString())
+    this.participants += "participants"
   }
 
   onSeeMore() {

@@ -1,5 +1,5 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
-import {DatePipe, NgIf} from '@angular/common';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {DatePipe, NgIf, NgStyle} from '@angular/common';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
@@ -14,7 +14,8 @@ import {Chat} from '../../models/discussion';
     DatePipe,
     NgIf,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    NgStyle
   ],
   templateUrl: './chat-comment.component.html',
   styleUrl: './chat-comment.component.scss'
@@ -27,6 +28,9 @@ export class ChatCommentComponent implements OnInit {
   @Input() currentUserId: string = '';
   @Output() deleteEvent = new EventEmitter<{ commentId: string}>();
   @Output() updateEvent = new EventEmitter<{ commentId: string, content: string}>();
+
+  @ViewChild('comment-container', { static: true }) commentContainer!: ElementRef<HTMLDivElement>;
+
 
   userIcon: string = '../../assets/default-user-icon.png';
   username: string = 'Carlos Ruano Rachid';
@@ -94,6 +98,10 @@ export class ChatCommentComponent implements OnInit {
       }
     });
     this.loadUserDetailsForComment();
+    if(this.isCommentOwner){
+      const container = this.commentContainer.nativeElement;
+      container.style.justifyContent = 'right';
+    }
   }
 
   loadUserDetailsForComment(): void {

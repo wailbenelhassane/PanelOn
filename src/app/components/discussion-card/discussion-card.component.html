@@ -13,7 +13,7 @@
     <div class="argument">{{ discussion.discussion }}</div>
     <div class="bottom-discusion">
       <div class="Participants">
-        {{ 'discussionCard.participants' | translate }}
+        {{this.participants}} {{ "discussionCard.participants" | translate }}
       </div>
 
       <a style="cursor: pointer" (click)="onSeeMore()">
