@@ -7,7 +7,7 @@ import {
   addDoc,
   deleteDoc,
   setDoc,
-  getDoc, updateDoc, getDocs
+  getDoc, updateDoc, getDocs, increment
 } from '@angular/fire/firestore';
 import {Observable, catchError, of, map, from, switchMap, combineLatest} from 'rxjs';
 import { where, query, orderBy } from '@angular/fire/firestore';
@@ -553,6 +553,7 @@ export class AppService {
       const newDiscussion = {
         ...discussion,
         date: new Date(),
+        chatCount:0
       }
 
       const docRef = await addDoc(discussionCollection, newDiscussion);
@@ -578,15 +579,28 @@ export class AppService {
 
   getDiscussionsOrderedByDate(ascending: boolean = false): Observable<any[]> {
     const discussionsCollection = collection(this.firestore, 'discussions');
-
     return collectionData(discussionsCollection, { idField: 'id' }).pipe(
       map((discussions: any[]) =>
         discussions
-          .filter(discussions => discussions.published != null)
+          .filter(discussions => discussions.date != null)
           .sort((a, b) => {
-            const dateA = new Date(a.published).getTime();
-            const dateB = new Date(b.published).getTime();
+            const dateA = a.date;
+            const dateB = b.date;
             return ascending ? dateA - dateB : dateB - dateA;
+          })
+      )
+    );
+  }
+  getDiscussionsOrderedByParticipants(ascending: boolean = false): Observable<any[]> {
+    const discussionsCollection = collection(this.firestore, 'discussions', );
+    return collectionData(discussionsCollection, { idField: 'id' }).pipe(
+      map((discussions: any[]) =>
+        discussions
+          .filter(discussions => discussions != null)
+          .sort((a, b) => {
+            const participantsA = a.chatCount;
+            const participantsB = b.chatCount;
+            return ascending ? participantsA - participantsB : participantsB - participantsA;
           })
       )
     );
@@ -618,6 +632,7 @@ export class AppService {
   }
 
 
+
   async addChat(discussionId: string, chat: Omit<Chat, 'id' | 'created_at'>): Promise<string> {
     try {
       const commentsCollection = collection(this.firestore, `/discussions/${discussionId}/comments`);
@@ -625,8 +640,12 @@ export class AppService {
         ...chat,
         created_at: new Date()
       };
-      const docRef = await addDoc(commentsCollection, newChat);
-      return docRef.id;
+      const chatRef = await addDoc(commentsCollection, newChat);
+      const disRef= await doc(this.firestore, `/discussions/${discussionId}`);
+      await updateDoc(disRef,{
+        chatCount:increment(1),
+      })
+      return chatRef.id;
     } catch (error) {
       throw error;
     }
@@ -645,6 +664,10 @@ export class AppService {
     try {
       const commentDoc = doc(this.firestore, `/discussions/${discussionId}/comments/${commentId}`);
       await deleteDoc(commentDoc);
+      const disRef= await doc(this.firestore, `/discussions/${discussionId}`);
+      await updateDoc(disRef,{
+        chatCount:increment(1),
+      })
     } catch (error) {
       throw error;
     }

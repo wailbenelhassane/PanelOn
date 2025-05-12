@@ -52,7 +52,7 @@ export class CommunityComponent implements OnInit {
     this.subscription = this.userStoreService.getUser().subscribe(user => {
       this.currentUserId = user?.id || '';
     });
-    this.appService.getDiscussions().pipe(
+    this.appService.getDiscussionsOrderedByParticipants(false).pipe(
       takeUntil(this.destroy$),
     ).subscribe({
       next: (discussions) => {
@@ -62,14 +62,14 @@ export class CommunityComponent implements OnInit {
         console.error('Error al cargar los cómics desde Firestore:', err);
       }
     })
-    this.appService.getDiscussionsOrderedByDate(true).pipe(
+    this.appService.getDiscussionsOrderedByDate(false).pipe(
       takeUntil(this.destroy$),
     ).subscribe({
       next: (discussions) => {
         this.discussionsByDate = discussions;
       },
       error: (err) => {
-        console.error('Error al cargar los cómics desde Firestore:', err);
+        console.error('Error al cargar los cómics por  fecha desde Firestore:', err);
       }
     })
   }
@@ -92,8 +92,11 @@ export class CommunityComponent implements OnInit {
       userId:this.currentUserId,
       title:this.newDiscussionTitle,
       discussion:this.newDiscussionContent,
+      chatCount:0
     }
     this.appService.addDiscussion(newDiscussion);
 
+    this.newDiscussionContent = '';
+    this.newDiscussionTitle = '';
   }
 }
