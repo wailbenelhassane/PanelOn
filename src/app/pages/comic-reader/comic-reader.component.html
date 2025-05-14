@@ -5,8 +5,11 @@
 </h1>
 
 <div class="Container">
-  <div id="pdf-container" #pdfContainter (click)="pageChangeOnClick($event, pdfContainter)">
-    <canvas class="normal" style="cursor:pointer" #pdfCanvas></canvas>
+  <div *ngIf="!pdfLoaded" class="center-container">
+    <div class="spinner"></div>
+  </div>
+  <div  id="pdf-container" #pdfContainter (click)="pageChangeOnClick($event, pdfContainter)">
+    <canvas  class="normal" style="cursor:pointer" #pdfCanvas></canvas>
   </div>
 
   <div id="BottomButtons">

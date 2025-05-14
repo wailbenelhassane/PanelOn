@@ -10,6 +10,7 @@ import { takeUntil } from 'rxjs/operators';
 import {ActionIconsComponent} from '../../components/action-icons/action-icons.component';
 import {ButtonComponent} from '../../components/button/button.component';
 import {TranslateModule} from '@ngx-translate/core';
+import {NgIf} from '@angular/common';
 
 @Component({
   selector: 'app-comic-reader',
@@ -20,7 +21,8 @@ import {TranslateModule} from '@ngx-translate/core';
     ButtonComponent,
     ActionIconsComponent,
     CommentsSectionComponent,
-    TranslateModule
+    TranslateModule,
+    NgIf
   ],
   templateUrl: './comic-reader.component.html',
   styleUrl: './comic-reader.component.scss'
@@ -34,6 +36,7 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   comicId: string = '';
   currentUserId: string = '';
   private destroy$ = new Subject<void>();
+  pdfLoaded:boolean=false;
 
   @ViewChild('pdfCanvas', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
   @ViewChild('pdfContainter', { static: true }) pdfContainter!: ElementRef<HTMLDivElement>;
@@ -126,7 +129,8 @@ export class ComicReaderComponent implements OnInit, OnChanges {
       };
 
       await page.render(renderContext).promise;
-
+      this.pdfLoaded = true;
+      console.log(this.pdfLoaded,"pdf Cargado");
     } catch (error) {
       console.error('Error al renderizar la página:', error);
     }
@@ -160,9 +164,9 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   }
 
   pageChangeOnClick(evt: MouseEvent, pdfContainter: HTMLDivElement) {
-    if (evt.pageX >= pdfContainter.clientWidth *(2/ 3)) {
+    if (evt.pageX >= pdfContainter.clientWidth/ 2) {
       this.nextPage();
-    } else if (evt.pageX <= pdfContainter.clientWidth *(1/ 3)) {
+    } else if (evt.pageX <= pdfContainter.clientWidth/ 2) {
       this.prevPage();
     }
   }
