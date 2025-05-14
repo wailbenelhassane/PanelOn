@@ -685,4 +685,11 @@ export class AppService {
     return await getDownloadURL(fileRef);
   }
 
+  async SaveComicPage(pageNumber: number, userId: string, comicId:string):Promise<void> {
+    const savedPageRef=doc(this.firestore,`users/${userId}/Bookmarks/${comicId})`)
+    await setDoc(savedPageRef,{
+      PageNumber:pageNumber,
+    });
+  }
+
 }

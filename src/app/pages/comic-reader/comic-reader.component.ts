@@ -11,6 +11,7 @@ import {ActionIconsComponent} from '../../components/action-icons/action-icons.c
 import {ButtonComponent} from '../../components/button/button.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgIf} from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-comic-reader',
@@ -37,11 +38,10 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   currentUserId: string = '';
   private destroy$ = new Subject<void>();
   pdfLoaded:boolean=false;
-
   @ViewChild('pdfCanvas', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
   @ViewChild('pdfContainter', { static: true }) pdfContainter!: ElementRef<HTMLDivElement>;
-  @ViewChild('InputNumber', { static: false }) inputNumber!: ElementRef<HTMLInputElement>;
 
+  @ViewChild('InputNumber', { static: false }) inputNumber!: ElementRef<HTMLInputElement>;
   private pdfDocument: any = null;
   maxPages = 0;
   InputNumber: number = 0;
@@ -51,6 +51,7 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   constructor(
     private route: ActivatedRoute,
     private appService: AppService,
+    private snackBar:MatSnackBar,
 
   )
   {
@@ -59,6 +60,8 @@ export class ComicReaderComponent implements OnInit, OnChanges {
 
   async ngOnInit(): Promise<void> {
     const comicId = this.route.snapshot.paramMap.get('id');
+    this.currentUserId
+
     if (comicId) {
       this.comicId = comicId;
       this.loadComicData(comicId);
@@ -197,4 +200,9 @@ export class ComicReaderComponent implements OnInit, OnChanges {
     let number =this.inputNumber.nativeElement.value.replace(/\D/g, '');
     this.inputNumber.nativeElement.value = number;
     }
+
+  SaveComicPage() {
+    this.snackBar.open("PaginaGuardada Guardado","Cerrar",{duration:2000,panelClass:["pageSaved"]})
+    this.appService.SaveComicPage(this.pageNumber, this.currentUserId, this.comicId);
+  }
 }

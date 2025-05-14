@@ -1,9 +1,10 @@
 <app-header></app-header>
 
+<div class="ComicTop">
 <h1>
   {{ title }}
 </h1>
-
+</div>
 <div class="Container">
   <div *ngIf="!pdfLoaded" class="center-container">
     <div class="spinner"></div>
@@ -37,8 +38,8 @@
       />
       <button class="page_button" (click)="nextPage()">></button>
     </div>
+    <app-button text="SavePage" (buttonClick)="SaveComicPage()" />
 
-    <app-action-icons></app-action-icons>
   </div>
 </div>
 

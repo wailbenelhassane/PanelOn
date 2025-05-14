@@ -1,8 +1,5 @@
 @import '../../../themes/themes';
 
-h1 {
-  padding: 15vh 5vh 0 5vh;
-}
 
 .fullscreen {
   background: var(--background);
@@ -152,4 +149,16 @@ canvas {
 @keyframes spin {
   0% { transform: rotate(0deg); }
   100% { transform: rotate(360deg); }
+}
+
+.ComicTop{
+  display: flex;
+  flex-direction: row;
+  padding: 15vh 5vh 0 5vh;
+  justify-content: space-between;
+}
+
+.pageSaved{
+  background-color: var(--primary);
+  color:var(--secondary);
 }
