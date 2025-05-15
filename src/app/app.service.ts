@@ -700,7 +700,6 @@ export class AppService {
 
       if (snapshot.exists()) {
         const data = snapshot.data();
-        console.log('Documento Firestore:', data); // para depuración
         return data["PageNumber"] ?? null;
       } else {
         console.log('Documento no existe');

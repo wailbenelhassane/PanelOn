@@ -143,7 +143,6 @@ export class ComicReaderComponent implements OnInit, OnChanges {
 
       await page.render(renderContext).promise;
       this.pdfLoaded = true;
-      console.log(this.pdfLoaded,"pdf Cargado");
     } catch (error) {
       console.error('Error al renderizar la página:', error);
     }
@@ -157,7 +156,7 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   }
 
   async prevPage(): Promise<void> {
-    if (this.pageNumber > 0) {
+    if (this.pageNumber > 1) {
       this.pageNumber--;
       this.renderPage(this.pageNumber);
     }

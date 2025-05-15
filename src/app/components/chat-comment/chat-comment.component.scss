@@ -2,11 +2,10 @@
 
 .comment-container {
   display: flex;
-  width: 100%;
-  max-width: 600px;
+  width: 50%;
   align-items: flex-start;
   gap: 2vw;
-  padding: 3vh 3vw;
+  padding: 3vh 1vw;
   background-color: var(--secondary);
   margin-bottom: 1vh;
   transition: transform 0.3s ease;
@@ -77,35 +76,6 @@
       }
     }
 
-    .reply-form {
-      margin: 1vh 0;
-      width: 100%;
-
-      .reply-textarea {
-        width: 100%;
-        height: 60px;
-        margin-bottom: 1vh;
-        resize: none;
-        padding: 0.5rem;
-        border: 1px solid var(--gray);
-        font-family: $font-family;
-      }
-
-      button {
-        background-color: var(--primary);
-        color: var(--white);
-        padding: 0.5rem 1rem;
-        margin-right: 0.5rem;
-        border: none;
-        cursor: pointer;
-        font-family: $font-family;
-
-        &:hover {
-          background-color: var(--primary-dark);
-        }
-      }
-    }
-
     .edit-textarea {
       width: 100%;
       height: 60px;
@@ -115,60 +85,5 @@
       border: 1px solid var(--gray);
       font-family: $font-family;
     }
-  }
-}
-
-.replies-container {
-  width: 100%;
-  max-width: 560изоляpx;
-  margin-left: 4vw;
-  margin-top: 1vh;
-
-  .replies-container {
-    margin-left: 0;
-    max-width: 100%;
-  }
-}
-
-.reply-wrapper {
-  position: relative;
-  margin-bottom: 1vh;
-}
-
-.reply-indicator {
-  font-size: 0.9rem;
-  color: var(--reply-gray);
-  margin-bottom: 0.5vh;
-  display: flex;
-  align-items: center;
-  font-family: $font-family;
-
-  .reply-arrow {
-    color: var(--blue);
-    margin-right: 5px;
-  }
-
-  .reply-username {
-    font-weight: 600;
-    color: var(--dark-gray);
-  }
-}
-
-.view-more-btn {
-  border: none;
-  color: var(--black);
-  cursor: pointer;
-  font-size: 0.9rem;
-  margin-top: 1vh;
-  padding: 8px 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  background-color: var(--view-more-bg);
-  font-family: $font-family;
-
-  &:hover {
-    background-color: var(--view-more-bg-hover);
   }
 }

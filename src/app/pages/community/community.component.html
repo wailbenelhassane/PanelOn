@@ -35,7 +35,7 @@
   {{ 'discussions.loading' | translate }}
 </div>
 <app-discussion-card
-  *ngFor="let discusion of discussions | slice: 0:5"
+  *ngFor="let discusion of discussions | slice: 0:10"
   [discussion]="discusion"
 ></app-discussion-card>
 
@@ -45,7 +45,7 @@
   {{ 'discussions.loading' | translate }}
 </div>
 <app-discussion-card
-  *ngFor="let discusion of discussionsByDate | slice: 0:5"
+  *ngFor="let discusion of discussionsByDate | slice: 0:10"
   [discussion]="discusion"
 ></app-discussion-card>
 
