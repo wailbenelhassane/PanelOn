@@ -12,6 +12,7 @@ import {ButtonComponent} from '../../components/button/button.component';
 import {TranslateModule} from '@ngx-translate/core';
 import {NgIf} from '@angular/common';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserStoreService} from '../../../../backend/src/services/user-store';
 
 @Component({
   selector: 'app-comic-reader',
@@ -20,7 +21,6 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     HeaderComponent,
     FooterComponent,
     ButtonComponent,
-    ActionIconsComponent,
     CommentsSectionComponent,
     TranslateModule,
     NgIf
@@ -52,6 +52,7 @@ export class ComicReaderComponent implements OnInit, OnChanges {
     private route: ActivatedRoute,
     private appService: AppService,
     private snackBar:MatSnackBar,
+    private userStoreService: UserStoreService
 
   )
   {
@@ -60,21 +61,30 @@ export class ComicReaderComponent implements OnInit, OnChanges {
 
   async ngOnInit(): Promise<void> {
     const comicId = this.route.snapshot.paramMap.get('id');
-    this.currentUserId
-
+    this.userStoreService.getUser().subscribe(user=>{
+      this.currentUserId = user?.id ||"";
+    })
     if (comicId) {
       this.comicId = comicId;
       this.loadComicData(comicId);
       this.pdfUrl = await this.appService.getComicUrl(comicId);
       console.log('PDF URL:', this.pdfUrl);
     }
+    if(this.currentUserId){
+        this.appService.getSaveComicPage(this.currentUserId,this.comicId).then(Number=>{
+          if (Number !== undefined && Number !== null) {
+            this.pageNumber =  Number;
+          } else {
+            this.pageNumber = 1;
+          }
+        })
+    }
     if (this.pdfUrl) {
       this.loadPdf();
     }
+
   }
-  ngAfterViewInit(): void {
-    document.addEventListener('fullscreenchange', this.fullscreenHandler);
-  }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pdfUrl'] && !changes['pdfUrl'].firstChange) {
@@ -202,7 +212,7 @@ export class ComicReaderComponent implements OnInit, OnChanges {
     }
 
   SaveComicPage() {
-    this.snackBar.open("PaginaGuardada Guardado","Cerrar",{duration:2000,panelClass:["pageSaved"]})
-    this.appService.SaveComicPage(this.pageNumber, this.currentUserId, this.comicId);
+    this.snackBar.open("Pagina Guardada","Cerrar",{duration:2000,panelClass:["pageSaved"]})
+    this.appService.saveComicPage(this.pageNumber, this.currentUserId, this.comicId);
   }
 }

@@ -9,7 +9,7 @@ import {
   setDoc,
   getDoc, updateDoc, getDocs, increment
 } from '@angular/fire/firestore';
-import {Observable, catchError, of, map, from, switchMap, combineLatest} from 'rxjs';
+import {Observable, catchError, of, map, from, switchMap, combineLatest, tap} from 'rxjs';
 import { where, query, orderBy } from '@angular/fire/firestore';
 import { docData } from 'rxfire/firestore';
 import {Comic, Comment} from './models/comic';
@@ -685,11 +685,31 @@ export class AppService {
     return await getDownloadURL(fileRef);
   }
 
-  async SaveComicPage(pageNumber: number, userId: string, comicId:string):Promise<void> {
-    const savedPageRef=doc(this.firestore,`users/${userId}/Bookmarks/${comicId})`)
+  async saveComicPage(pageNumber: number, userId: string, comicId:string):Promise<void> {
+    console.log("Guardando página...", pageNumber, userId, comicId);
+    const savedPageRef=doc(this.firestore,`users/${userId}/Bookmarks/${comicId}`);
     await setDoc(savedPageRef,{
       PageNumber:pageNumber,
     });
+  }
+
+  async getSaveComicPage(userId: string, comicId:string) {
+    const savedPageRef=doc(this.firestore,`users/${userId}/Bookmarks/${comicId}/`);
+    try {
+      const snapshot = await getDoc(savedPageRef);
+
+      if (snapshot.exists()) {
+        const data = snapshot.data();
+        console.log('Documento Firestore:', data); // para depuración
+        return data["PageNumber"] ?? null;
+      } else {
+        console.log('Documento no existe');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error al obtener PageNumber:', error);
+      return null;
+    }
   }
 
 }

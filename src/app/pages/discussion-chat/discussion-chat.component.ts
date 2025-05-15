@@ -22,7 +22,6 @@ export class DiscussionChatComponent implements OnInit {
 
   discussion!:Discussion;
 
-  private destroy$ = new Subject();
   private subscription: Subscription|undefined;
   currentUserId: string='';
   constructor(private appservice: AppService,
