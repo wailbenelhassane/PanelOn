@@ -5,6 +5,7 @@
     "NEWS": "NOTÍCIAS",
     "COMMUNITY": "COMUNIDADE",
     "SUBSCRIPTION": "ASSINATURA",
+    "UPLOAD": "ENVIAR",
     "SIGN_UP": "Registrar-se",
     "LOGIN": "Entrar",
     "PROFILE": "Perfil",
@@ -53,6 +54,8 @@
   "comicDescription": {
     "synopsis": "Sinopse",
     "author": "Autor",
+    "follow": "Seguir",
+    "unfollow": "Deixar de seguir",
     "genre": "Gênero",
     "release_date": "Data de publicação"
   },

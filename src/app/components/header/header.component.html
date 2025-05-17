@@ -26,7 +26,7 @@
         <a [routerLink]="['/community']" [queryParams]="{ option: 'community' }">{{ 'HEADER.COMMUNITY' | translate }}</a>
       </li>
       <li class="navigation-item" *ngIf="user">
-        <a routerLink="/upload-form">UPLOAD</a>
+        <a routerLink="/upload-form">{{'HEADER.UPLOAD' | translate}}</a>
       </li>
       <li class="navigation-item" *ngIf="!user">
         <a routerLink="/login">{{ 'HEADER.SUBSCRIPTION' | translate }}</a>
