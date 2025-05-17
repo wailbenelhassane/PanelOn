@@ -9,7 +9,9 @@
     "LOGIN": "Connexion",
     "PROFILE": "Profil",
     "LOGOUT": "Déconnexion",
-    "LANGUAGE": "Langue"
+    "LANGUAGE": "Langue",
+    "LIGHT_MODE": "Clair",
+    "DARK_MODE": "Sombre"
   },
   "footer": {
     "policy": "Politique",
@@ -137,6 +139,8 @@
     "uploadedComics": "Bandes dessinées publiées",
     "likedComics": "Bandes dessinées aimées",
     "uploadComic": "TÉLÉVERSER UNE BD",
+    "followed": "AUTEURS SUIVIS",
+    "noFollowed": "Vous ne suivez encore aucun auteur.",
     "edit": "Modifier",
     "delete": "Supprimer",
     "modal": {
@@ -173,7 +177,15 @@
     "uploadSuccess": "✅ Téléchargement Réussi!",
     "uploadError": "⚠️ Une erreur s'est produite lors du téléchargement.",
     "uploading": "Téléchargement en cours...",
-    "upload": "Télécharger"
+    "upload": "Télécharger",
+    "colorLegend": "Légende des niveaux PEGI",
+    "pegi3": "Convient à tous les publics.",
+    "pegi7": "Scènes légères pouvant effrayer les jeunes enfants.",
+    "pegi12": "Peut inclure une violence légère ou de la nudité non sexuelle.",
+    "pegi16": "Violence réaliste ou contenu sexuel léger.",
+    "pegi18": "Contenu explicite, violence forte ou thèmes adultes.",
+    "NSFWAnalysis": "Analyse NSFW",
+    "ViolenceAnalysis": "Analyse de la violence"
   },
   "loginComponent": {
     "pageTitle": "CONNEXION",

@@ -9,7 +9,9 @@
     "LOGIN": "Login",
     "PROFILE": "Profile",
     "LOGOUT": "Logout",
-    "LANGUAGE": "Language"
+    "LANGUAGE": "Language",
+    "LIGHT_MODE": "Light",
+    "DARK_MODE": "Dark"
   },
   "footer": {
     "policy": "Policy",
@@ -137,6 +139,8 @@
     "uploadedComics": "Uploaded Comics",
     "likedComics": "Liked Comics",
     "uploadComic": "UPLOAD A COMIC",
+    "followed": "FOLLOWED AUTHORS",
+    "noFollowed": "No authors followed yet.",
     "edit": "Edit",
     "delete": "Delete",
     "modal": {
@@ -173,7 +177,15 @@
     "uploadSuccess": "✅ Upload Successful!",
     "uploadError": "⚠️ There was an error during the upload.",
     "uploading": "Uploading...",
-    "upload": "Upload"
+    "upload": "Upload",
+    "colorLegend": "PEGI Rating Legend",
+    "pegi3": "Suitable for all audiences.",
+    "pegi7": "May contain mild scenes that could frighten young children.",
+    "pegi12": "May include mild violence or non-sexual nudity.",
+    "pegi16": "Realistic violence or mild sexual content.",
+    "pegi18": "Explicit content, strong violence or adult themes.",
+    "NSFWAnalysis": "NSFW Analysis",
+    "ViolenceAnalysis": "Violence Analysis"
   },
   "loginComponent": {
     "pageTitle": "LOG IN",
