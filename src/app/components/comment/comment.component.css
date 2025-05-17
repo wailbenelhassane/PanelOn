@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .comment-container {
   display: flex;
   width: 100%;
@@ -81,7 +81,7 @@
   justify-content: center;
   align-items: flex-start;
   width: 100%;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .comment-container .comment-content .username {
   font-size: 1.2rem;
@@ -111,7 +111,7 @@
   color: var(--black);
   cursor: pointer;
   font-size: 0.9rem;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .comment-container .comment-content .comment-actions button[disabled] {
   color: var(--gray);
@@ -131,7 +131,7 @@
   resize: none;
   padding: 0.5rem;
   border: 1px solid var(--gray);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .comment-container .comment-content .reply-form button {
   background-color: var(--primary);
@@ -140,7 +140,7 @@
   margin-right: 0.5rem;
   border: none;
   cursor: pointer;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .comment-container .comment-content .reply-form button:hover {
   background-color: var(--primary-dark);
@@ -152,7 +152,7 @@
   resize: none;
   padding: 0.5rem;
   border: 1px solid var(--gray);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .replies-container {
@@ -177,7 +177,7 @@
   margin-bottom: 0.5vh;
   display: flex;
   align-items: center;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .reply-indicator .reply-arrow {
   color: var(--blue);
@@ -200,7 +200,7 @@
   justify-content: center;
   width: 121%;
   background-color: var(--highlight-color);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .view-more-btn:hover {
   background-color: var(--highlight-color);

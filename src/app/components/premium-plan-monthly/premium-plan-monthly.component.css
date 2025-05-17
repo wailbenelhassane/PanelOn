@@ -28,9 +28,9 @@
   justify-content: center;
   flex-direction: column;
   align-items: center;
-  width: 45vw;
+  width: 40vw;
   height: 45vh;
-  padding: 1vh 1vw;
+  padding: 2vh 2vw;
   gap: 2vh;
 }
 .monthly-plan-container .section-plan-title-container {
@@ -72,7 +72,7 @@
   .monthly-plan-container .section-plan-title-container {
     display: flex;
     justify-content: center;
-    font-size: 0.8rem;
+    font-size: 0.7rem;
     font-weight: bold;
     width: 100%;
     padding: 0 4vw;
@@ -82,10 +82,10 @@
   }
   .monthly-plan-container .section-description-container {
     justify-content: center;
-    font-size: 0.85rem;
+    font-size: 0.75rem;
     font-weight: bold;
     text-align: center;
-    width: 65%;
+    width: 75%;
   }
   .monthly-plan-container .button-general-container {
     margin-top: 2vh;

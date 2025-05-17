@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .summary-buy-container {
   background-color: var(--white);
   justify-self: center;
@@ -60,7 +60,7 @@
   width: 22vw;
   color: var(--text-color);
   margin-bottom: 2vh;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .summary-buy-container .summary-header {
   margin-bottom: 1.5rem;
@@ -77,28 +77,6 @@
   align-items: flex-start;
   gap: 1.5rem;
 }
-.summary-buy-container .summary-content .subscription-figure {
-  display: flex;
-  flex-direction: column;
-  width: 8vw;
-  height: 8vh;
-  background-color: var(--subscription-bg);
-  border-radius: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.summary-buy-container .summary-content .subscription-figure #subscription-caption {
-  font-size: 0.8rem;
-  color: var(--dark-gray);
-  align-items: center;
-  margin: 0;
-  padding-top: 0.2vh;
-}
-.summary-buy-container .summary-content .subscription-figure #subscription-img {
-  width: 50px;
-  height: auto;
-}
 .summary-buy-container .summary-content .summary-buy {
   margin-top: 1vh;
   display: flex;
@@ -108,18 +86,60 @@
   width: 100%;
 }
 .summary-buy-container .summary-content .summary-buy #summary-subscription {
-  font-size: 0.95rem;
+  font-size: 1rem;
   font-weight: 600;
   margin: 0;
   display: flex;
   justify-self: center;
+  flex-wrap: wrap;
+  text-align: left;
 }
 .summary-buy-container .summary-content .summary-buy #price-subscription {
   margin-top: 0.5rem;
   font-weight: bold;
-  font-size: 1rem;
+  font-size: 1.1rem;
   color: var(--black);
   align-self: flex-end;
+}
+
+@media (max-width: 900px) {
+  .summary-buy-container {
+    width: 75%;
+  }
+  .summary-content {
+    flex-direction: column;
+  }
+  .summary-content .subscription-figure {
+    display: none;
+  }
+  .summary-content .summary-buy #summary-subscription {
+    font-size: 1.2rem;
+  }
+  .summary-content .summary-buy #price-subscription {
+    font-size: 1.2rem;
+    text-align: right;
+  }
+}
+@media (max-width: 600px) {
+  .summary-buy-container {
+    width: 70%;
+    padding: 1.5rem;
+  }
+  .summary-content {
+    gap: 0.5rem;
+  }
+  .summary-content .summary-buy {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .summary-content .summary-buy #summary-subscription {
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+  .summary-content .summary-buy #price-subscription {
+    font-size: 1.2rem;
+    text-align: left;
+  }
 }
 
 /*# sourceMappingURL=summary-buy.component.css.map */

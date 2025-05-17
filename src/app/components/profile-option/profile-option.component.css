@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .profile-option {
   background: var(--secondary);
   display: flex;
@@ -61,7 +61,7 @@
   padding: 4rem;
   gap: 1rem;
   border-radius: 1rem;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .imageContainer {

@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .main-nav {
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@
   right: 0;
   z-index: 100;
   transition: transform 0.3s ease;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .main-nav.header-hidden {
   transform: translateY(-100%);

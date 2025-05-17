@@ -113,3 +113,9 @@
 .card-container:hover .back-card {
   transform: rotateY(360deg);
 }
+
+@media (max-width: 1000px) {
+  .card-container {
+    display: none;
+  }
+}

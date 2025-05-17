@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .character-card {
   width: 12.5rem;
   margin: 0.625rem;
@@ -88,7 +88,7 @@
   flex-direction: column;
   justify-content: space-between;
   text-align: center;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .character-card .info-container .superhero-name {
   margin: 0;

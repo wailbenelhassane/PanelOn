@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .search-bar {
   position: relative;
 }
@@ -76,7 +76,7 @@
 .filter-header h4 {
   margin: 0;
   font-weight: bold;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .close-btn {
@@ -117,7 +117,7 @@
 .checkbox-label {
   font-size: 14px;
   cursor: pointer;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .filter-actions {
@@ -150,7 +150,7 @@
   background: var(--secondary);
   height: 50px;
   margin-left: 5vh;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .sort-button:hover {
@@ -187,7 +187,7 @@
   cursor: pointer;
   border-radius: 8px;
   transition: background-color 0.3s ease;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .dropdown-content .dropdown-item:hover {

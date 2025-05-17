@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .user-page {
   display: flex;
   flex-direction: column;
@@ -98,7 +98,7 @@
 .userName {
   font-weight: bold;
   font-size: 2rem;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .subscriptionBar {
@@ -115,7 +115,7 @@
   font-size: 16px;
   font-weight: bold;
   transition: transform 0.3s ease, background-color 0.3s ease;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .subscribeButton {
@@ -159,7 +159,7 @@
   width: 15rem;
   outline: none;
   transition: border-color 0.3s ease;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .edit-username-input:focus {
@@ -205,7 +205,7 @@
   width: 100%;
   max-width: 100%;
   box-sizing: border-box;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .edit-hint {
@@ -216,7 +216,7 @@
   margin-top: 2px;
   margin-bottom: 5px;
   text-align: left;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .edit-description-container {
@@ -230,7 +230,7 @@
   padding: 10px;
   border: 1px solid var(--gray);
   border-radius: 4px;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   font-size: inherit;
   resize: vertical;
   margin-bottom: 10px;
@@ -245,7 +245,7 @@
   cursor: pointer;
   font-size: 14px;
   transition: background-color 0.3s;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .add-description-button:hover {

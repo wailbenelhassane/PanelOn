@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .discussion-container {
   display: flex;
   flex-direction: row;
@@ -61,7 +61,7 @@
   margin: 2.5vh;
   padding: 2.5vh 0vh 3vh 0vh;
   box-shadow: var(--gray) 0.3vh 0.3vh 5px;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .discussion-container * {

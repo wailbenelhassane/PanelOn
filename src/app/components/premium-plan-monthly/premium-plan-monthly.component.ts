@@ -1,16 +1,20 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ButtonComponent} from '../button/button.component';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-premium-plan-monthly',
   templateUrl: './premium-plan-monthly.component.html',
   imports: [
-    ButtonComponent
   ],
   standalone: true,
   styleUrl: './premium-plan-monthly.component.scss'
 })
 export class PremiumPlanMonthlyComponent {
+
+  constructor(private router: Router) {
+  }
+
   @Input() title: string = 'Monthly Plan – Total Flexibility';
   @Input() description: string = 'Try the service with no commitments and pay month by month. Perfect if you want to explore everything we offer before making a long-term decision.';
   @Input() backgroundSection: string = '#D9D9D9';
@@ -29,5 +33,9 @@ export class PremiumPlanMonthlyComponent {
 
   onPlanClick() {
     this.planSelected.emit(this.planType);
+  }
+
+  navigate() {
+    this.router.navigate(['/payment'], { queryParams: { plan: this.planType } })
   }
 }
