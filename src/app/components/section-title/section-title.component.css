@@ -94,4 +94,13 @@ div {
   margin-left: 0;
 }
 
+@media (max-width: 768px) {
+  .text-left {
+    margin-left: 5%;
+  }
+  .text-right {
+    margin-right: 5%;
+  }
+}
+
 /*# sourceMappingURL=section-title.component.css.map */

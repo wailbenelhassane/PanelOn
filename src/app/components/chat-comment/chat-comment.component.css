@@ -60,7 +60,7 @@
   align-items: flex-start;
   gap: 2vw;
   padding: 3vh 3vw;
-  background-color: var(--white);
+  background-color: var(--secondary);
   margin-bottom: 1vh;
   transition: transform 0.3s ease;
   box-shadow: 0 2px 8px var(--shadow);
@@ -91,7 +91,7 @@
 }
 .comment-container .comment-content .timestamp {
   font-size: 0.9rem;
-  color: var(--dark-gray);
+  color: var(--white);
   margin: 0 0 1vh 0;
 }
 .comment-container .comment-content .comment-text {
