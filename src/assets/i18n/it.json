@@ -5,6 +5,7 @@
     "NEWS": "NOTIZIE",
     "COMMUNITY": "COMUNITÀ",
     "SUBSCRIPTION": "ABBONAMENTO",
+    "UPLOAD": "CARICARE",
     "SIGN_UP": "Registrati",
     "LOGIN": "Accedi",
     "PROFILE": "Profilo",
@@ -53,6 +54,8 @@
   "comicDescription": {
     "synopsis": "Sinossi",
     "author": "Autore",
+    "follow": "Segui",
+    "unfollow": "Smetti di seguire",
     "genre": "Genere",
     "release_date": "Data di pubblicazione"
   },
