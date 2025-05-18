@@ -1,6 +1,6 @@
 <div class="discussion-container">
   <div class="profile-pic-container">
-    <img class="profile-pic" src="https://github.com/Juanelboi.png" />
+    <img class="profile-pic" [src]="userImg || '../../assets/default-user-icon.png'">
   </div>
 
   <div class="Discussion-part">
@@ -13,7 +13,7 @@
     <div class="argument">{{ discussion.discussion }}</div>
     <div class="bottom-discusion">
       <div class="Participants">
-        {{ 'discussionCard.participants' | translate }}
+        {{this.participants}} {{ "discussionCard.participants" | translate }}
       </div>
 
       <a style="cursor: pointer" (click)="onSeeMore()">
@@ -21,4 +21,8 @@
       </a>
     </div>
   </div>
+
+
+
+
 </div>

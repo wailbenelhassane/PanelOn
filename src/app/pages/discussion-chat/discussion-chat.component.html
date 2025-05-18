@@ -8,8 +8,10 @@
 <p class="discussion-chat">{{discussion.discussion}}</p>
 
 
-<div class="center-container">
 
+<div class="center-container">
+  <div>Post hecho por: {{discussionUser.username}}</div>
 </div>
 
 <app-chat [discussionId]="discussion.id!" [currentUserId]="currentUserId"/>
+

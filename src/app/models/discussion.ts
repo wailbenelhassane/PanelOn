@@ -14,4 +14,5 @@ export interface Discussion {
   discussion: string
   date: Timestamp
   userId: string
+  chatCount:number
 }
