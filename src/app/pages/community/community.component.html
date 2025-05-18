@@ -10,7 +10,7 @@
 
 <div *ngIf="searched && (discussionsSearched.length!==0)">
   <div>
-  <app-section-title text="Searched Discussions"></app-section-title>
+    <app-section-title [text]="'discussions.searchedDiscussions' | translate"></app-section-title>
   </div>
   <app-discussion-card
     *ngFor="let discusion of discussionsSearched | slice: 0:discussionsSearched.length"

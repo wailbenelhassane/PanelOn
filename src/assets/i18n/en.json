@@ -65,7 +65,8 @@
   },
   "reader": {
     "fullscreen": "Fullscreen",
-    "pagePlaceholder": "Page {{ page }}"
+    "pagePlaceholder": "Page {{ page }}",
+    "savePage":  "Save page"
   },
   "comments": {
     "addYours": "ADD YOURS",
@@ -100,7 +101,8 @@
     "cancel": "Cancel",
     "topDiscussions": "Top Discussions",
     "latest": "Latest",
-    "loading": "Discussions Loading..."
+    "loading": "Discussions Loading...",
+    "searchedDiscussions": "Searched Discussions"
   },
   "discussionCard": {
     "participants": "Participants",
