@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .form-container {
   display: flex;
   flex-direction: row-reverse;
@@ -74,11 +74,16 @@
   align-items: center;
 }
 
+.fa-upload:before {
+  content: "\f093";
+  color: black;
+}
+
 .file-upload {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--background);
+  background-color: var(--secondary);
   min-height: 20vh;
   position: relative;
   z-index: 1;
@@ -117,7 +122,7 @@ textarea {
   border-radius: 5px;
   box-shadow: 2px 2px 5px var(--shadow);
   background-color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -149,7 +154,7 @@ textarea::placeholder {
   margin-top: 0.2vh;
   margin-bottom: 0.2vh;
   background-color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .title input:focus {
   outline: none;
@@ -195,7 +200,7 @@ textarea::placeholder {
   margin-bottom: 0.3vh;
   background-color: var(--white);
   color: var(--gray);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   text-align: left;
 }
 .state-container select:focus {
@@ -224,7 +229,7 @@ textarea::placeholder {
   margin-top: 0.3vh;
   margin-bottom: 0.3vh;
   background-color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   text-align: left;
   margin-right: 1vh;
 }
@@ -245,7 +250,7 @@ textarea::placeholder {
   margin-top: 0.3vh;
   margin-bottom: 0.3vh;
   background-color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }

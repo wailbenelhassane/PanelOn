@@ -1,16 +1,16 @@
 $font-size-title: 1.2rem;
-$mobile-font-size-title: 0.8rem;
+$mobile-font-size-title: 0.7rem;
 $font-weight-title: bold;
 
 $font-size-description: 1rem;
-$mobile-font-size-description: 0.85rem;
+$mobile-font-size-description: 0.75rem;
 $font-weight-description: bold;
 
 $font-size-price: 2rem;
 $mobile-font-size-price: 1rem;
 $font-weight-price: bold;
 
-$container-width: 45vw;
+$container-width: 40vw;
 $mobile-container-width: 80%;
 $container-height: 45vh;
 $mobile-container-height: 30vh;
@@ -55,7 +55,7 @@ $mobile-container-height: 30vh;
   align-items: center;
   width: $container-width;
   height: $container-height;
-  padding: 1vh 1vw;
+  padding: 2vh 2vw;
   gap: 2vh;
 
   .section-plan-title-container {
@@ -114,7 +114,7 @@ $mobile-container-height: 30vh;
       font-size: $mobile-font-size-description;
       font-weight: $font-weight-description;
       text-align: center;
-      width: 65%;
+      width: 75%;
     }
 
     .button-general-container {

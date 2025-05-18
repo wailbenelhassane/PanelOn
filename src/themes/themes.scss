@@ -45,13 +45,13 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
+/*@font-face {
   font-family: 'genty';
   src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 
-$font-family: 'Genty', sans-serif;
+$font-family: Arial, sans-serif;
 $font-family-card-text: 'Raleway', serif;
 $font-family-card-title: 'Open Sans Condensed', sans-serif;

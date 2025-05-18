@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 * {
   box-sizing: border-box;
   margin: 0;
@@ -94,7 +94,7 @@
 
 .login-container .login-header h1 {
   font-size: 2.5rem;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   font-weight: bold;
   color: var(--black);
   text-transform: uppercase;
@@ -131,7 +131,7 @@
   margin-top: 1vh;
   margin-bottom: 2vh;
   background-color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .login-container .login-form input:focus {
@@ -147,7 +147,7 @@
   font-size: 20px;
   font-weight: bold;
   color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   border: none;
   cursor: pointer;
   border-radius: 5px;
@@ -160,7 +160,7 @@
 .login-container .login-links {
   color: var(--black);
   font-size: 1rem;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   margin-top: 2vh;
   display: block;
 }
@@ -195,7 +195,7 @@
   margin-top: 1vh;
   margin-bottom: 2vh;
   background-color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .password-container input:focus {
@@ -220,7 +220,7 @@
 .error-message,
 .success-message {
   font-size: 0.9rem;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   margin-bottom: 0.3vh;
   text-align: left;
   width: 35.14vw;

@@ -1,17 +1,17 @@
 <div class="cancel-subscription-modal">
   <div class="cancel-subscription-modal-header">
-    <h1 id="cancel-modal-subscription-title"> {{ 'userProfile.modal.title' | translate }} </h1>
+    <h1 id="cancel-modal-subscription-title">{{ 'userProfile.modal.title' | translate }}</h1>
     <div class="button-container">
       <app-button
         [text]="'X'"
-        [buttonHeight]="'0.5vh'"
-        [buttonWidth]="'0.5vw'"
+        [buttonHeight]="'auto'"
+        [buttonWidth]="'auto'"
         (buttonClick)="close()">
       </app-button>
     </div>
   </div>
   <div class="cancel-subscription-modal-content">
-    <h2 id="cancel-modal-subscription-message"> {{ 'userProfile.modal.message' | translate }} </h2>
+    <h2 id="cancel-modal-subscription-message">{{ 'userProfile.modal.message' | translate }}</h2>
 
     <form class="cancel-modal-subscription-form" [formGroup]="form">
       <input class="input-field"

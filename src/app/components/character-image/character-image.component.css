@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .character-image-container {
   display: flex;
   flex-direction: column;
@@ -90,7 +90,7 @@
   text-align: center;
   font-weight: bold;
   color: var(--primary);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 /*# sourceMappingURL=character-image.component.css.map */

@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .carousel-container {
   position: relative;
   margin: 0 auto;
@@ -59,7 +59,7 @@
   max-width: 70vw;
   overflow: hidden;
   padding-top: 3vh;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .carousel-inner {

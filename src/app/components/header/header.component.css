@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .main-nav {
   display: flex;
   flex-direction: column;
@@ -64,7 +64,7 @@
   right: 0;
   z-index: 100;
   transition: transform 0.3s ease;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .main-nav.header-hidden {
   transform: translateY(-100%);
@@ -77,7 +77,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
+  width: 95%;
 }
 
 .logo-container {
@@ -120,8 +120,8 @@
   align-items: center;
   justify-content: center;
   font-weight: 500;
-  font-size: 1.5rem;
-  gap: 20px;
+  font-size: 1.25rem;
+  gap: 15px;
 }
 .auth-links a {
   text-decoration: none;
@@ -192,6 +192,63 @@
 .dropdown-item.logout {
   cursor: pointer;
   color: var(--red);
+}
+
+.language-selector {
+  position: relative;
+  cursor: pointer;
+  user-select: none;
+  font-family: sans-serif;
+}
+
+.selected-language {
+  display: flex;
+  align-items: center;
+  padding: 4px;
+  border-radius: 8px;
+  gap: 5px;
+  background-color: var(--secondary);
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.selected-language img {
+  width: 24px;
+  height: 16px;
+}
+
+.arrow {
+  margin-left: auto;
+  font-size: 15px;
+}
+
+.language-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  border-radius: 8px;
+  z-index: 1000;
+  margin-top: 4px;
+  list-style: none;
+  padding: 0;
+  background-color: var(--secondary);
+  box-shadow: 0 2px 10px var(--shadow);
+}
+
+.language-dropdown li {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  gap: 10px;
+  transition: background 0.2s;
+}
+
+.language-dropdown li:hover {
+  background: #eee;
+}
+
+.language-dropdown img {
+  width: 24px;
+  height: 16px;
 }
 
 .mobile-menu-toggle {
@@ -293,7 +350,7 @@
   margin: 0;
   padding: 0;
   flex-direction: column;
-  gap: 15px;
+  gap: 10px;
 }
 
 .mobile-navigation-item a {

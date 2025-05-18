@@ -46,19 +46,19 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .news-article {
   position: relative;
   background-color: none;
   padding: 7vh 1.5vw;
   max-width: 800px;
   margin: 0 auto;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   color: var(--text-color);
   line-height: 1.6;
 }

@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .footer-nav {
   background: linear-gradient(-45deg, var(--primary), var(--primary-dark));
   color: var(--white);
@@ -61,7 +61,7 @@
   height: 5vh;
   margin-top: 4vh;
   font-weight: bold;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   width: 100%;
 }
 .footer-nav .footer-menu {
@@ -76,7 +76,7 @@
 .footer-nav .footer-menu .footer-item a {
   text-decoration: none;
   color: var(--white);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   font-size: 14px;
   padding: 10px;
 }

@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 :host {
   display: block;
   margin: 0 30px;
@@ -62,7 +62,7 @@
   margin-top: 50px;
   margin-bottom: 50px;
   cursor: pointer;
-  background-color: var(--white);
+  background-color: var(--secondary);
   border: 4px solid var(--black);
   box-shadow: 0 0 0 7px var(--white), 0 0 8px 5px var(--black);
 }

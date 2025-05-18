@@ -45,17 +45,17 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 section {
   display: flex;
   align-items: center;
   font-weight: bold;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   margin-top: 5%;
   padding: 0.625rem;
 }
@@ -92,6 +92,15 @@ div {
 .text-right {
   margin-right: 14.5%;
   margin-left: 0;
+}
+
+@media (max-width: 768px) {
+  .text-left {
+    margin-left: 5%;
+  }
+  .text-right {
+    margin-right: 5%;
+  }
 }
 
 /*# sourceMappingURL=section-title.component.css.map */

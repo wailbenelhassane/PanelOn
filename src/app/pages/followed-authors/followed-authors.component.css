@@ -45,17 +45,17 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .followed-authors {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
   text-align: center;
 }
 .followed-authors .imageContainer {

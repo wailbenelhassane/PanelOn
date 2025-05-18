@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .comments-section {
   display: flex;
   flex-direction: column;
@@ -85,7 +85,7 @@
   padding: 6px;
   border: 1px solid var(--border-gray);
   font-size: 16px;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .comments-section .comment-form .comment-textarea:focus {
   outline: none;
@@ -105,7 +105,7 @@
   cursor: pointer;
   transition: background-color 0.3s ease;
   border: none;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .comments-section .comment-form button:focus {
   outline: none;
@@ -129,7 +129,7 @@
   text-align: center;
   padding: 20px;
   color: var(--loading-gray);
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 .comments-section .comments-list {
   width: 100%;

@@ -5,6 +5,7 @@
     "NEWS": "NEWS",
     "COMMUNITY": "COMMUNITY",
     "SUBSCRIPTION": "SUBSCRIPTION",
+    "UPLOAD": "UPLOAD",
     "SIGN_UP": "Sign up",
     "LOGIN": "Login",
     "PROFILE": "Profile",
@@ -53,6 +54,8 @@
   "comicDescription": {
     "synopsis": "Synopsis",
     "author": "Author",
+    "follow": "Follow",
+    "unfollow": "Unfollow",
     "genre": "Genre",
     "release_date": "Release Date"
   },
@@ -177,7 +180,15 @@
     "uploadSuccess": "✅ Upload Successful!",
     "uploadError": "⚠️ There was an error during the upload.",
     "uploading": "Uploading...",
-    "upload": "Upload"
+    "upload": "Upload",
+    "colorLegend": "PEGI Rating Legend",
+    "pegi3": "Suitable for all audiences.",
+    "pegi7": "May contain mild scenes that could frighten young children.",
+    "pegi12": "May include mild violence or non-sexual nudity.",
+    "pegi16": "Realistic violence or mild sexual content.",
+    "pegi18": "Explicit content, strong violence or adult themes.",
+    "NSFWAnalysis": "NSFW Analysis",
+    "ViolenceAnalysis": "Violence Analysis"
   },
   "loginComponent": {
     "pageTitle": "LOG IN",

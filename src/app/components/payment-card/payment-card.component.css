@@ -45,12 +45,12 @@
   --highlight-color: #6b082e;
 }
 
-@font-face {
-  font-family: "genty";
-  src: url("../assets/font/genty-sans-regular.ttf") format("truetype");
+/*@font-face {
+  font-family: 'genty';
+  src: url("../assets/font/genty-sans-regular.ttf") format('truetype');
   font-weight: 800;
   font-style: normal;
-}
+}*/
 .card-container {
   width: 18vw;
   height: 20vh;
@@ -75,7 +75,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  font-family: "Genty", sans-serif;
+  font-family: Arial, sans-serif;
 }
 
 .front-card {
@@ -156,6 +156,12 @@
 
 .card-container:hover .back-card {
   transform: rotateY(360deg);
+}
+
+@media (max-width: 1000px) {
+  .card-container {
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=payment-card.component.css.map */
