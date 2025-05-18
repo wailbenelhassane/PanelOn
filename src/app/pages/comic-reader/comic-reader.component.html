@@ -38,7 +38,7 @@
       />
       <button class="page_button" (click)="nextPage()">></button>
     </div>
-    <app-button text="SavePage" (buttonClick)="SaveComicPage()" />
+    <app-button [text]="'reader.savePage' | translate" (buttonClick)="SaveComicPage()" />
 
   </div>
 </div>
