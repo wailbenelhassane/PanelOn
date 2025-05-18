@@ -8,11 +8,12 @@ import {NgForOf, NgIf, SlicePipe} from '@angular/common';
 import {Discussion} from '../../models/discussion';
 import {AppService} from '../../app.service';
 import {takeUntil} from 'rxjs/operators';
-import {Subject, Subscription} from 'rxjs';
+import {map, Subject, Subscription} from 'rxjs';
 import {ButtonComponent} from '../../components/button/button.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {UserStoreService} from '../../../../backend/src/services/user-store';
 import {TranslateModule} from '@ngx-translate/core';
+import {query} from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-community',
@@ -36,13 +37,15 @@ import {TranslateModule} from '@ngx-translate/core';
 
 export class CommunityComponent implements OnInit {
   discussions: Discussion[]=[];
+  discussionsSearched: Discussion[]=[];
+  discussionsByDate: Discussion[]=[];
   private destroy$=new Subject<void>();
   showDiscussionForm:boolean=false;
   newDiscussionContent:string="";
   newDiscussionTitle:string='';
   @Input() currentUserId:string='';
   private subscription:Subscription|undefined;
-  discussionsByDate: Discussion[]=[];
+  searched:boolean=false;
 
   constructor(private appService: AppService,
               private userStoreService: UserStoreService,
@@ -98,5 +101,25 @@ export class CommunityComponent implements OnInit {
 
     this.newDiscussionContent = '';
     this.newDiscussionTitle = '';
+  }
+
+  handleDiscussionSearch(query: string) {
+    if (query==="") {
+      this.discussionsSearched = [];
+      return;
+    }
+  this.appService.getDiscussions().pipe(
+    map(discussions => discussions.filter(discussion => {
+      const lowerQuery = query.toLowerCase();
+      return discussion.title.toLowerCase().includes(lowerQuery);
+    }))
+  ).subscribe(result=>{
+    this.discussionsSearched = result
+  })
+    this.searched = true;
+  }
+
+  CloseSearch() {
+    this.searched = false;
   }
 }
