@@ -82,4 +82,9 @@ html, body {
   flex-wrap: wrap;
 }
 
+.pageSaved {
+  background-color: var(--primary);
+  color: var(--secondary);
+}
+
 /*# sourceMappingURL=styles.css.map */

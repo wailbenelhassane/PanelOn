@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently --kill-others-on-fail \"ts-node ./src/nsfw-backend/src/index.ts || ts-node ./src/nsfw-backend/src/index.ts --port 3001\" \"ts-node ./backend/src/api.ts || ts-node ./backend/src/api.ts --port 3002\" \"ng serve --configuration=development --port 4200 || ng serve --configuration=development --port 4300\"",
+    "start": "concurrently \"ts-node ./src/nsfw-backend/src/index.ts || ts-node ./src/nsfw-backend/src/index.ts --port 3001\" \"ts-node ./backend/src/api.ts || ts-node ./backend/src/api.ts --port 3002\" \"ng serve --configuration=development --port 4200 || ng serve --configuration=development --port 4300\"",
     "backend:nsfw": "nodemon ./src/nsfw-backend/src/index.ts",
     "backend:main": "nodemon ./backend/src/api.ts",
     "build": "ng build",

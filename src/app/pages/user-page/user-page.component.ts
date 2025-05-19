@@ -16,6 +16,7 @@ import { getDownloadURL, ref, Storage, uploadBytes } from '@angular/fire/storage
 import { combineLatest, filter } from 'rxjs';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import {User} from '@angular/fire/auth';
+import {NotificationService} from '../../../../backend/src/services/notification';
 
 @Component({
   selector: 'app-user-page',
