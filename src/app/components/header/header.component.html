@@ -36,8 +36,8 @@
       </li>
       <li class="navigation-item">
         <a (click)="toggleTheme()">
-          <span *ngIf="isDarkMode; else lightModeIcon">{{ 'HEADER.LIGHT_MODE' | translate }}</span>
-          <ng-template #lightModeIcon>{{ 'HEADER.DARK_MODE' | translate }}</ng-template>
+          <span *ngIf="isDarkMode; else lightModeIcon"><i class="fa-regular fa-sun"></i></span>
+          <ng-template #lightModeIcon><i class="fa-solid fa-moon"></i></ng-template>
         </a>
       </li>
     </ul>
@@ -57,8 +57,8 @@
           <div class="dropdown-menu" [ngClass]="{ 'dropdown-visible': showDropdown }">
             <a routerLink="/user-page" class="dropdown-item">{{ userData?.username || 'Profile' }}</a>
             <a (click)="toggleTheme()" class="dropdown-item">
-              <span *ngIf="isDarkMode; else lightModeIcon">{{ 'HEADER.LIGHT_MODE' | translate }}</span>
-              <ng-template #lightModeIcon>{{ 'HEADER.DARK_MODE' | translate }}</ng-template>
+              <span *ngIf="isDarkMode; else lightModeIcon"><i class="fa-regular fa-sun"></i></span>
+              <ng-template #lightModeIcon><i class="fa-solid fa-moon"></i></ng-template>
             </a>
             <a (click)="logout()" class="dropdown-item logout">{{ 'HEADER.LOGOUT' | translate }}</a>
           </div>
@@ -85,8 +85,8 @@
         <img class="profile-image" [src]="userData?.imageUrl || '../../assets/default-user-icon.png'" alt="Profile" />
         <div class="username-text" routerLink="/user-page">{{ userData?.username || 'HEADER.PROFILE' | translate }}</div>
         <a (click)="toggleTheme()" class="dropdown-item">
-          <span *ngIf="isDarkMode; else lightModeIcon">{{ 'HEADER.LIGHT_MODE' | translate }}</span>
-          <ng-template #lightModeIcon>{{ 'HEADER.DARK_MODE' | translate }}</ng-template>
+          <span *ngIf="isDarkMode; else lightModeIcon"><i class="fa-regular fa-sun"></i></span>
+          <ng-template #lightModeIcon><i class="fa-solid fa-moon"></i></ng-template>
         </a>
         <a class="dropdown-item logout" (click)="logout()">{{ 'HEADER.LOGOUT' | translate }}</a>
       </div>
@@ -123,12 +123,6 @@
       </li>
       <li class="mobile-navigation-item">
         <a [routerLink]="['/community']" [queryParams]="{ option: 'community' }">{{ 'HEADER.COMMUNITY' | translate }}</a>
-      <li class="mobile-navigation-item">
-        <a (click)="toggleTheme()">
-          <span *ngIf="isDarkMode; else lightModeIcon">{{ 'HEADER.LIGHT_MODE' | translate }}</span>
-          <ng-template #lightModeIcon>{{ 'HEADER.DARK_MODE' | translate }}</ng-template>
-        </a>
-      </li>
       <li class="mobile-navigation-item" *ngIf="user">
         <a routerLink="/upload-form">UPLOAD</a>
       </li>
