@@ -8,5 +8,6 @@ export interface IUser {
   imageUrl?: string;
   description?: string;
   subscription?: boolean;
+  notificationsEnabled?: boolean;
   language?: string;
 }

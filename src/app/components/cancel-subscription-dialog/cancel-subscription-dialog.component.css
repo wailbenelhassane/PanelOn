@@ -54,27 +54,35 @@
 .cancel-subscription-modal {
   display: flex;
   flex-direction: column;
-  width: 21.5vw;
-  height: 35vh;
-  padding-left: 0.5vw;
+  width: 90%;
+  max-width: 500px;
+  height: auto;
+  min-height: 300px;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 .cancel-subscription-modal .cancel-subscription-modal-header {
   display: flex;
   flex-direction: row;
-  padding-top: 1vh;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
-  color: var(--red);
-  font-size: 0.6rem;
-  font-weight: bold;
-  font-family: Arial, sans-serif;
-  text-align: center;
   width: 100%;
-  height: 8vh;
-  gap: 0.1vw;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--gray-light, #e0e0e0);
+}
+.cancel-subscription-modal .cancel-subscription-modal-header h1 {
+  color: var(--red);
+  font-size: 1.2rem;
+  font-weight: bold;
+  font-family: var(--font-family, sans-serif);
+  margin: 0;
 }
 .cancel-subscription-modal .cancel-subscription-modal-header .button-container {
-  left: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 .cancel-subscription-modal .cancel-subscription-modal-content {
   display: flex;
@@ -82,37 +90,78 @@
   justify-content: center;
   align-items: center;
   width: 100%;
-  font-size: 0.8rem;
-  font-family: Arial, sans-serif;
-  text-align: center;
+  padding: 20px 0;
 }
-.cancel-subscription-modal .cancel-subscription-modal-content #cancel-modal-subscription-message {
+.cancel-subscription-modal .cancel-subscription-modal-content h2 {
+  font-size: 0.9rem;
   font-weight: 400;
+  font-family: var(--font-family, sans-serif);
   color: var(--black);
+  text-align: center;
+  margin-bottom: 20px;
 }
 .cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 2vh;
+  width: 100%;
+  max-width: 350px;
+  gap: 15px;
 }
-.cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form {
-  margin-top: 2vh;
-}
-.cancel-subscription-modal .input-field {
-  text-align: left;
-  border: 1px solid var(--gray);
-  border-radius: 4px;
-  padding: 5px;
-  outline: none;
-  font-family: Arial, sans-serif;
-}
-.cancel-subscription-modal .input-field::placeholder {
+.cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form .input-field {
+  width: 100%;
+  height: 40px;
   text-align: center;
+  border: 1px solid var(--gray, #cccccc);
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-family: var(--font-family, sans-serif);
+  font-size: 0.9rem;
+  box-sizing: border-box;
 }
-.cancel-subscription-modal .input-field:focus {
+.cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form .input-field::placeholder {
+  text-align: center;
+  color: var(--gray-medium, #999999);
+}
+.cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form .input-field:focus {
   outline: none;
+  border-color: var(--primary, #4a90e2);
+  box-shadow: 0 0 3px rgba(74, 144, 226, 0.3);
+}
+.cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form app-button {
+  margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .cancel-subscription-modal {
+    width: 95%;
+    padding: 15px;
+  }
+  .cancel-subscription-modal .cancel-subscription-modal-header h1 {
+    font-size: 1rem;
+  }
+  .cancel-subscription-modal .cancel-subscription-modal-content h2 {
+    font-size: 0.8rem;
+    padding: 0 10px;
+  }
+  .cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form {
+    width: 90%;
+  }
+  .cancel-subscription-modal .cancel-subscription-modal-content .cancel-modal-subscription-form .input-field {
+    height: 38px;
+    font-size: 0.85rem;
+  }
+}
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+  .cancel-subscription-modal {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+  }
+  .cancel-subscription-modal .cancel-modal-subscription-form {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=cancel-subscription-dialog.component.css.map */

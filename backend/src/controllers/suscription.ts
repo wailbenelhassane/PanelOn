@@ -2,8 +2,11 @@ import { Request, Response } from 'express';
 import { SubscriptionManagementService } from '../../../src/app/services/stripe/subscription-management.service';
 import {StripeService} from '../../../src/app/services/stripe/stripe.service';
 import {SubscriptionsService} from '../../../src/app/services/firebase/interactable/subscriptions.service';
+import { container } from 'tsyringe';
 
-const subscriptionService = new SubscriptionManagementService(new StripeService(), new SubscriptionsService());
+const stripeService = container.resolve(StripeService);
+const subscriptionsService = container.resolve(SubscriptionsService);
+const subscriptionService = new SubscriptionManagementService(stripeService, subscriptionsService);
 
 export const createSubscription = async (req: Request, res: Response) => {
   const { userId, paymentMethodId, planType, email } = req.body;

@@ -2,6 +2,7 @@ import dotenv from 'dotenv';
 import router from './routes';
 import express from 'express';
 import cors from 'cors';
+import '@angular/compiler';
 
 
 dotenv.config();
