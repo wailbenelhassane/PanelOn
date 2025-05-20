@@ -92,7 +92,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   checkScreenSize() {
     if (isPlatformBrowser(this.platformId)) {
-      this.isMobile = window.innerWidth <= 768;
+      this.isMobile = window.innerWidth <= 900;
       if (!this.isMobile && this.mobileMenuOpen) {
         this.mobileMenuOpen = false;
       }
