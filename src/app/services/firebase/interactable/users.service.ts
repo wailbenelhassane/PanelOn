@@ -47,4 +47,22 @@ export class UsersService extends FirestoreServiceInteractable<IUser> {
       })
     );
   }
+
+  updateNotifications(userId: string, enabled: boolean): Observable<boolean> {
+    if (!userId) return of(false);
+
+    return new Observable<boolean>((observer) => {
+      // @ts-ignore
+      this.firestore.collection('users').doc(userId).update({
+        notificationsEnabled: enabled
+      }).then(() => {
+        observer.next(true);
+        observer.complete();
+      }).catch((error: any) => {
+        console.error(`Error actualizando notificaciones para el usuario ${userId}:`, error);
+        observer.next(false);
+        observer.complete();
+      });
+    });
+  }
 }

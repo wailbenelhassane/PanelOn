@@ -6,6 +6,10 @@ import { AppService } from '../../app.service';
 import {uploadComicService} from '../../../../backend/src/services/upload-comic.service';
 import {TranslateModule} from '@ngx-translate/core';
 import {Auth, onAuthStateChanged} from '@angular/fire/auth';
+import {UsersService} from '../../services/firebase/interactable/users.service';
+import {UserStoreService} from '../../../../backend/src/services/user-store';
+import {NotifyService} from '../../services/notify.service';
+import {firstValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-upload-form',
@@ -40,7 +44,11 @@ export class UploadFormComponent implements OnInit {
   uid: string  = '';
   violenceDetected = false;
 
-  constructor(private http: HttpClient, private AppService: AppService, private uploadService: uploadComicService, private auth: Auth) {}
+  constructor(private http: HttpClient, private AppService: AppService,
+              private uploadService: uploadComicService,
+              private auth: Auth,
+              private usersService: UsersService,
+              private notifyService: NotifyService) {}
 
 
   ngOnInit() {
@@ -147,8 +155,7 @@ export class UploadFormComponent implements OnInit {
       formData.append('author', this.author);
       formData.append('synopsis', this.synopsis);
       formData.append('state', this.state);
-      // @ts-ignore
-      formData.append('pegi', this.selectedPegi); // Enviamos el PEGI ajustado
+      formData.append('pegi', this.selectedPegi || '');
       this.selectedGenres.forEach(genre => formData.append('genre', genre));
       formData.append('file', this.selectedFile!);
       formData.append('author_id', this.uid);
@@ -160,6 +167,18 @@ export class UploadFormComponent implements OnInit {
           this.isUploadingFile = false;
           this.uploadSuccess = true;
           this.uploadService.uploadComic(res.comicId);
+
+          // ✅ Aquí llamamos al servicio de usuario
+          firstValueFrom(this.usersService.get(this.uid))
+            .then((user) => {
+              // ✅ Ahora podemos acceder al email y name
+              console.log('Usuario recuperado:', user);
+              this.notifyService.sendNotification(user.email, user.name);
+            })
+            .catch((error) => {
+              console.error('Error al obtener el usuario:', error);
+            });
+
           form.resetForm();
           this.resetState();
         },
@@ -172,6 +191,7 @@ export class UploadFormComponent implements OnInit {
       });
     }
   }
+
 
 
   resetState(): void {

@@ -52,10 +52,6 @@
   font-weight: 800;
   font-style: normal;
 }*/
-h1 {
-  padding: 15vh 5vh 0 5vh;
-}
-
 .fullscreen {
   background: var(--background);
 }
@@ -179,6 +175,36 @@ canvas {
 .rating-value {
   font-size: 3vh;
   color: var(--dark-gray);
+}
+
+.spinner {
+  width: 24px;
+  height: 24px;
+  border: 4px solid #000000;
+  border-top: 4px solid transparent;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  box-sizing: border-box;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+.ComicTop {
+  display: flex;
+  flex-direction: row;
+  padding: 15vh 5vh 0 5vh;
+  justify-content: space-between;
+}
+
+.pageSaved {
+  background-color: var(--primary);
+  color: var(--secondary);
 }
 
 /*# sourceMappingURL=comic-reader.component.css.map */
