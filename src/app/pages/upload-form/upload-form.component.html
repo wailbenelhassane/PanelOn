@@ -1,6 +1,6 @@
 <form #uploadForm="ngForm" (ngSubmit)="onSubmit(uploadForm)">
   <div class="aside-img">
-    <img src="https://media.mycomicshop.com/n_iv/600/1168751.jpg" alt="Comic Cover">
+    <img src="https://www.reawakentheory.com/cdn/shop/files/IMG20240307131919.jpg?v=1712027062&width=823" alt="Comic Cover">
   </div>
   <div class="form-container">
     <div class="inner-form-container">
@@ -24,22 +24,20 @@
         </div>
         <div *ngIf="formSubmitted && (!isFileValid() || invalidFile || !isSizeValid)" class="file-warning">
           <p style="color: red;">
-            Please select a valid PDF. Max size: 100MB.
+            {{ 'uploadComic.fileValidationError' | translate }}
           </p>
         </div>
       </div>
 
-      <!-- Mostrar el PEGI sugerido o NSFW -->
       <div *ngIf="nsfwResult">
         <div *ngIf="loadingStatus === 'clean'" class="message clean-message">
-          ✅ The PDF is clean. PEGI Suggested: {{ nsfwResult.pegi }}
+          {{ 'uploadComic.pdfClean' | translate }} {{ nsfwResult.pegi }}
         </div>
         <div *ngIf="loadingStatus === 'nsfw'" class="message nsfw-message">
-          ⚠️ The PDF violates the Terms and Conditions.
+          {{ 'uploadComic.pdfViolation' | translate }}
         </div>
       </div>
 
-      <!-- Estado de carga -->
       <div *ngIf="loadingStatus" class="progress-bar">
         <div class="progress" [ngClass]="{
             'loading': loadingStatus === 'loading',
@@ -48,25 +46,53 @@
         }"></div>
       </div>
 
+      <a
+        class="details-link"
+        *ngIf="!isAnalyzingFile && (nsfwResult?.nsfw || violenceDetected) && loadingStatus !== 'loading'"
+        (click)="openModal()"
+      >
+        {{ 'uploadComic.details' | translate }}
+      </a>
+
+      <div *ngIf="modalVisible && nsfwResult != null" class="modal">
+        <div class="modal-content">
+          <div class="pegi-legend">
+            <h3 style="color: black">{{ 'uploadComic.colorLegend' | translate }}</h3>
+            <ul>
+              <li style="color: black"><span style="color: green; font-weight: bold;">PEGI 3</span>: {{ 'uploadComic.pegi3' | translate }}</li>
+              <li style="color: black"><span style="color: green; font-weight: bold;">PEGI 7</span>: {{ 'uploadComic.pegi7' | translate }}</li>
+              <li style="color: black"><span style="color: orange; font-weight: bold;">PEGI 12</span>: {{ 'uploadComic.pegi12' | translate }}</li>
+              <li style="color: black"><span style="color: orangered; font-weight: bold;">PEGI 16</span>: {{ 'uploadComic.pegi16' | translate }}</li>
+              <li style="color: black"><span style="color: red; font-weight: bold;">PEGI 18</span>: {{ 'uploadComic.pegi18' | translate }}</li>
+            </ul>
+          </div>
+
+          <span class="close" (click)="closeModal()">&times;</span>
+          <h2 style="color: black" *ngIf="nsfwResult?.nsfw">{{ 'uploadComic.NSFWAnalysis' | translate }}</h2>
+          <h2 style="color: black" *ngIf="violenceDetected">{{ 'uploadComic.ViolenceAnalysis' | translate }}</h2>
+          <div *ngFor="let image of imagePreviews">
+            <img [src]="image" alt="{{ 'uploadComic.preview' | translate }}" class="preview-image"/>
+          </div>
+        </div>
+      </div>
       <div style="align-self: flex-start;">
         <nav aria-label="Go back">
-          <a id="back-link" href="#" onclick="history.back(); return false" style="color: black"> &larr; Go back</a>
+          <a id="back-link" href="#" onclick="history.back(); return false" style="color: black"> &larr; {{ 'uploadComic.goBack' | translate }}</a>
         </nav>
       </div>
 
-      <!-- Resto del formulario: Título, Autor, etc. -->
       <div class="title">
         <input
           type="text"
           name="title"
-          placeholder="Title"
+          placeholder="{{ 'uploadComic.title' | translate }}"
           [(ngModel)]="title"
           #titleInput="ngModel"
           required
           [ngClass]="{ 'invalid': !isValidTitle() && titleInput.touched }"
         >
         <div *ngIf="!isValidTitle() && formSubmitted" class="error-message">
-          Invalid title. Only letters, numbers, and common punctuation allowed. Length: 2–50 chars.
+          {{ 'uploadComic.titleError' | translate }}
         </div>
       </div>
 
@@ -75,29 +101,29 @@
         <input type="text"
                id="author"
                name="author"
-               placeholder="Author"
+               placeholder="{{ 'uploadComic.author' | translate }}"
                [(ngModel)]="author"
                #authorInput="ngModel"
                required
                [ngClass]="{ 'invalid': !isValidTitle() && authorInput.touched }"
         >
         <div *ngIf="!isValidAuthor() && formSubmitted" class="error-message">
-          Invalid author. Only letters, numbers, and common punctuation allowed. Length: 2–50 chars.
+          {{ 'uploadComic.authorError' | translate }}
         </div>
       </div>
       <div class="title">
-        <textarea id="synopsis" [(ngModel)]="synopsis" name="synopsis" placeholder="Synopsys" rows="4" cols="50"></textarea>
+        <textarea id="synopsis" [(ngModel)]="synopsis" name="synopsis" placeholder="{{ 'uploadComic.synopsis' | translate }}" rows="4" cols="50"></textarea>
       </div>
 
 
       <div class="state-container">
         <select id="state" [(ngModel)]="state" name="state" required>
-          <option value="" disabled selected>State</option>
-          <option value="In process">In process</option>
-          <option value="Finished">Finished</option>
+          <option value="" disabled selected>{{ 'uploadComic.state' | translate }}</option>
+          <option value="In process">{{ 'uploadComic.inProcess' | translate }}</option>
+          <option value="Finished">{{ 'uploadComic.finished' | translate }}</option>
         </select>
         <div *ngIf="formSubmitted && state === ''" class="error-message">
-          Please select a state.
+          {{ 'uploadComic.stateError' | translate }}
         </div>
       </div>
 
@@ -108,13 +134,13 @@
           name="selectedGenre"
           [ngClass]="{ 'invalid': selectedGenres.length === 0 && formSubmitted }"
         >
-          <option value="" disabled selected>Select Genre</option>
+          <option value="" disabled selected>{{ 'uploadComic.selectGenre' | translate }}</option>
           <option *ngFor="let genre of genre" [value]="genre">{{ genre }}</option>
         </select>
-        <button type="button" (click)="addGenre()">Add</button>
+        <button type="button" (click)="addGenre()">{{ 'uploadComic.add' | translate }}</button>
       </div>
       <div class="genre-list">
-        <p>Selected Genres (click to remove):</p>
+        <p>{{ 'uploadComic.selectedGenres' | translate }}</p>
         <span
           *ngFor="let genre of selectedGenres"
           class="genre-item"
@@ -128,29 +154,25 @@
 
 
       <div *ngIf="selectedGenres.length === 0 && formSubmitted" class="error-message">
-        Please select at least one genre.
+        {{ 'uploadComic.genreError' | translate }}
       </div>
 
-      <!-- Mostrar el mensaje de éxito después de la carga -->
       <div *ngIf="uploadSuccess" class="message success-message">
-        ✅ Upload Successful!
+        {{ 'uploadComic.uploadSuccess' | translate }}
       </div>
 
-      <!-- Mostrar el mensaje de error si algo falla -->
       <div *ngIf="uploadError" class="message error-message">
-        ⚠️ There was an error during the upload.
+        {{ 'uploadComic.uploadError' | translate }}
       </div>
 
-      <!-- Estado de carga -->
       <div *ngIf="isUploadingFile" class="loading-overlay">
         <div class="spinner"></div>
-        <p>Uploading...</p>
+        <p>{{ 'uploadComic.uploading' | translate }}</p>
       </div>
 
 
-      <!-- Botón de subida -->
       <div class="upload-button">
-        <app-button text="UPLOAD"></app-button>
+        <button type="submit" class= "upload-form-button">{{ 'uploadComic.upload' | translate }}</button>
       </div>
     </div>
   </div>

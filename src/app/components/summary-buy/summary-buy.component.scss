@@ -1,8 +1,7 @@
-$background-color: #fff;
-$text-color: #1a1a1a;
-$muted-color: #666;
-$bold-color: #000;
-$highlight-color: #5c5c5c;
+@import '../../../themes/themes';
+
+$background-color:  var(--white);
+$bold-color: var(--black);
 
 @mixin flex-column {
   display: flex;
@@ -21,10 +20,11 @@ $highlight-color: #5c5c5c;
   justify-self: center;
   border-radius: 8px;
   padding: 2rem;
-  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 10px 15px var(--shadow);
   width: 22vw;
-  color: $text-color;
+  color: var(--text-color);
   margin-bottom: 2vh;
+  font-family: $font-family;
 
   .summary-header {
     margin-bottom: 1.5rem;
@@ -40,50 +40,78 @@ $highlight-color: #5c5c5c;
     @include flex-row(flex-start, flex-start);
     gap: 1.5rem;
 
-    .subscription-figure {
-      @include flex-column;
-      width: 8vw;
-      height: 8vh;
-      background-color: #fef7dc;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-
-      #subscription-caption {
-        font-size: 0.8rem;
-        color: $muted-color;
-        align-items: center;
-        margin: 0;
-        padding-top: 0.2vh;
-      }
-
-
-      #subscription-img {
-        width: 50px;
-        height: auto;
-      }
-    }
-
     .summary-buy {
       margin-top: 1vh;
       @include flex-row(space-between, center);
       width: 100%;
 
       #summary-subscription {
-        font-size: 0.95rem;
+        font-size: 1rem;
         font-weight: 600;
         margin: 0;
         display: flex;
         justify-self: center;
+        flex-wrap: wrap;
+        text-align: left;
       }
 
       #price-subscription {
         margin-top: 0.5rem;
         font-weight: bold;
-        font-size: 1rem;
+        font-size: 1.1rem;
         color: $bold-color;
         align-self: flex-end;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .summary-buy-container {
+    width: 75%;
+  }
+
+  .summary-content {
+    flex-direction: column;
+
+    .subscription-figure {
+      display: none;
+    }
+
+    .summary-buy {
+      #summary-subscription {
+        font-size: 1.2rem;
+      }
+
+      #price-subscription {
+        font-size: 1.2rem;
+        text-align: right;
+      }
+    }
+  }
+}
+
+@media (max-width: 600px) {
+  .summary-buy-container {
+    width: 70%;
+    padding: 1.5rem;
+  }
+
+  .summary-content {
+    gap: 0.5rem;
+
+    .summary-buy {
+      flex-direction: column;
+      align-items: flex-start;
+
+      #summary-subscription {
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+      }
+
+      #price-subscription {
+        font-size: 1.2rem;
+        text-align: left;
       }
     }
   }

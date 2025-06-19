@@ -1,13 +1,14 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {ButtonComponent} from "../button/button.component";
 import {CommentComponent} from "../comment/comment.component";
-import {NgForOf, NgIf} from "@angular/common";
+import {NgForOf, NgIf, NgStyle} from "@angular/common";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Subscription} from 'rxjs';
 import {AppService} from '../../app.service';
 import {UserStoreService} from '../../../../backend/src/services/user-store';
 import {Chat} from '../../models/discussion';
 import {ChatCommentComponent} from '../chat-comment/chat-comment.component';
+import {TranslateModule} from '@ngx-translate/core';
 
 @Component({
   selector: 'app-chat',
@@ -17,14 +18,16 @@ import {ChatCommentComponent} from '../chat-comment/chat-comment.component';
     NgIf,
     ReactiveFormsModule,
     FormsModule,
-    ChatCommentComponent
+    ChatCommentComponent,
+    TranslateModule,
+    NgStyle
   ],
   templateUrl: './chat.component.html',
   styleUrl: './chat.component.scss'
 })
 export class ChatComponent implements OnInit,OnDestroy {
-  @Input() discussionId: string = '';
-  @Input() currentUserId: string = '';
+  @Input() discussionId!: string;
+  @Input() currentUserId!: string;
 
   comments: Chat[] = [];
   showCommentForm: boolean = false;

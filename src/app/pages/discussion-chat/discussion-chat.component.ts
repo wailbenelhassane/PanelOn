@@ -7,6 +7,7 @@ import {AppService} from '../../app.service';
 import {SectionTitleComponent} from '../../components/section-title/section-title.component';
 import {UserStoreService} from '../../../../backend/src/services/user-store';
 import {ChatComponent} from '../../components/chat/chat.component';
+import {IUser} from '../../models/user';
 
 @Component({
   selector: 'app-discussion-chat',
@@ -21,8 +22,8 @@ import {ChatComponent} from '../../components/chat/chat.component';
 export class DiscussionChatComponent implements OnInit {
 
   discussion!:Discussion;
+  discussionUser!:IUser;
 
-  private destroy$ = new Subject();
   private subscription: Subscription|undefined;
   currentUserId: string='';
   constructor(private appservice: AppService,
@@ -36,10 +37,16 @@ export class DiscussionChatComponent implements OnInit {
     const discussionId = this.route.snapshot.params['id'];
     this.appservice.getDiscussionById(discussionId).subscribe(discussion => {
       this.discussion = discussion;
+      this.appservice.getUserByUid(this.discussion.userId).subscribe(user => {
+        this.discussionUser = user;
+      })
     })
     this.subscription = this.userStoreService.getUser().subscribe(user => {
       this.currentUserId = user?.id || '';
     });
+
+
+
 
   }
 

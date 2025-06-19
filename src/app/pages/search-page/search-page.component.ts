@@ -9,6 +9,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NewsCardComponent} from '../../components/news-card/news-card.component';
 import {CharacterCardComponent} from '../../components/character-card/character-card.component';
 import {map} from 'rxjs';
+import {TranslateModule} from '@ngx-translate/core';
 
 
 @Component({
@@ -21,6 +22,7 @@ import {map} from 'rxjs';
     NgForOf,
     NewsCardComponent,
     CharacterCardComponent,
+    TranslateModule
   ],
   templateUrl: './search-page.component.html',
   styleUrl: './search-page.component.scss'
@@ -103,19 +105,8 @@ export class SearchPageComponent implements OnInit {
 
 
   dropdownVisible = false;
-  sortAscending = true;
-
   toggleDropdown() {
     this.dropdownVisible = !this.dropdownVisible;
-  }
-
-  sortBy(option: string) {
-    if (option === 'date') {
-      this.loadComicsOrderedByDate();
-    } else if (option === 'rating') {
-      this.loadComicsOrderedByRating();
-    }
-    this.dropdownVisible = false;
   }
   sortByRatingAscending = false;
   loadComicsOrderedByRating() {
@@ -123,7 +114,7 @@ export class SearchPageComponent implements OnInit {
       this.comics = orderedComics;
     });
 
-    // Alterna el orden para la próxima vez que se llame
+
     this.sortByRatingAscending = !this.sortByRatingAscending;
   }
 
@@ -135,7 +126,6 @@ export class SearchPageComponent implements OnInit {
       this.comics = orderedComics;
     });
 
-    // Cambiar el orden para la próxima vez
     this.sortByDateAscending = !this.sortByDateAscending;
   }
 
@@ -191,5 +181,28 @@ export class SearchPageComponent implements OnInit {
     });
   }
 
+  maxComicsPerPage = 15;
+  currentPage = 1;
 
+  get totalPages(): number {
+    return Math.ceil(this.comics.length / this.maxComicsPerPage);
+  }
+
+  get paginatedComics() {
+    const start = (this.currentPage - 1) * this.maxComicsPerPage;
+    const end = start + this.maxComicsPerPage;
+    return this.comics.slice(start, end);
+  }
+
+  prevPage() {
+    if (this.currentPage > 1) {
+      this.currentPage--;
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage < this.totalPages) {
+      this.currentPage++;
+    }
+  }
 }

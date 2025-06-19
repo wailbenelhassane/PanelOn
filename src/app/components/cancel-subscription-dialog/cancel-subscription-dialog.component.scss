@@ -1,14 +1,15 @@
-$title-size: 0.6rem;
-$title-color: red;
-$title-weight: bold;
+@import '../../../themes/themes';
 
-$subtitle-size: 0.8rem;
-$subtitle-color: black;
+// Variables
+$font-family: var(--font-family, sans-serif);
+$title-size-desktop: 1.2rem;
+$title-size-mobile: 1rem;
+$subtitle-size-desktop: 0.9rem;
+$subtitle-size-mobile: 0.8rem;
+$title-weight: bold;
 $subtitle-weight: 400;
 
-$dialog-width: 21.5vw;
-$dialog-height: 35vh;
-
+// Mixins
 @mixin flex-column {
   display: flex;
   flex-direction: column;
@@ -21,25 +22,35 @@ $dialog-height: 35vh;
 
 .cancel-subscription-modal {
   @include flex-column;
-  width: $dialog-width;
-  height: $dialog-height;
-  padding-left: 0.5vw;
+  width: 90%;
+  max-width: 500px;
+  height: auto;
+  min-height: 300px;
+  padding: 20px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 
   .cancel-subscription-modal-header {
     @include flex-row;
-    padding-top: 1vh;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    color: $title-color;
-    font-size: $title-size;
-    font-weight: $title-weight;
-    text-align: center;
     width: 100%;
-    height: 8vh;
-    gap: 0.1vw;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--gray-light, #e0e0e0);
+
+    h1 {
+      color: var(--red);
+      font-size: $title-size-desktop;
+      font-weight: $title-weight;
+      font-family: $font-family;
+      margin: 0;
+    }
 
     .button-container {
-      left:0;
+      display: flex;
+      justify-content: flex-end;
     }
   }
 
@@ -48,39 +59,92 @@ $dialog-height: 35vh;
     justify-content: center;
     align-items: center;
     width: 100%;
-    font-size: $subtitle-size;
-    text-align: center;
+    padding: 20px 0;
 
-    #cancel-modal-subscription-message {
+    h2 {
+      font-size: $subtitle-size-desktop;
       font-weight: $subtitle-weight;
+      font-family: $font-family;
+      color: var(--black);
+      text-align: center;
+      margin-bottom: 20px;
     }
 
     .cancel-modal-subscription-form {
       @include flex-column;
-      justify-content: center;
-      align-items: center;
-      gap: 2vh;
+      width: 100%;
+      max-width: 350px;
+      gap: 15px;
+
+      .input-field {
+        width: 100%;
+        height: 40px;
+        text-align: center;
+        border: 1px solid var(--gray, #cccccc);
+        border-radius: 4px;
+        padding: 8px 12px;
+        font-family: $font-family;
+        font-size: 0.9rem;
+        box-sizing: border-box;
+      }
+
+      .input-field::placeholder {
+        text-align: center;
+        color: var(--gray-medium, #999999);
+      }
+
+      .input-field:focus {
+        outline: none;
+        border-color: var(--primary, #4a90e2);
+        box-shadow: 0 0 3px rgba(74, 144, 226, 0.3);
+      }
+
+      app-button {
+        margin-top: 10px;
+      }
     }
+  }
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .cancel-subscription-modal {
+    width: 95%;
+    padding: 15px;
+
+    .cancel-subscription-modal-header {
+      h1 {
+        font-size: $title-size-mobile;
+      }
+    }
+
+    .cancel-subscription-modal-content {
+      h2 {
+        font-size: $subtitle-size-mobile;
+        padding: 0 10px;
+      }
+
+      .cancel-modal-subscription-form {
+        width: 90%;
+
+        .input-field {
+          height: 38px;
+          font-size: 0.85rem;
+        }
+      }
+    }
+  }
+}
+
+/* Extra small devices */
+@media screen and (max-width: 480px) {
+  .cancel-subscription-modal {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
 
     .cancel-modal-subscription-form {
-      margin-top: 2vh;
+      width: 100%;
     }
   }
-
-  .input-field {
-    text-align: left;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    padding: 5px;
-    outline: none;
-  }
-
-  .input-field::placeholder {
-    text-align: center;
-  }
-
-  .input-field:focus {
-    outline: none;
-  }
-
 }

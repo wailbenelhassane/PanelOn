@@ -9,6 +9,10 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import {ActionIconsComponent} from '../../components/action-icons/action-icons.component';
 import {ButtonComponent} from '../../components/button/button.component';
+import {TranslateModule} from '@ngx-translate/core';
+import {NgIf} from '@angular/common';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {UserStoreService} from '../../../../backend/src/services/user-store';
 
 @Component({
   selector: 'app-comic-reader',
@@ -17,8 +21,9 @@ import {ButtonComponent} from '../../components/button/button.component';
     HeaderComponent,
     FooterComponent,
     ButtonComponent,
-    ActionIconsComponent,
     CommentsSectionComponent,
+    TranslateModule,
+    NgIf
   ],
   templateUrl: './comic-reader.component.html',
   styleUrl: './comic-reader.component.scss'
@@ -32,12 +37,11 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   comicId: string = '';
   currentUserId: string = '';
   private destroy$ = new Subject<void>();
-
+  pdfLoaded:boolean=false;
   @ViewChild('pdfCanvas', { static: true }) canvasElement!: ElementRef<HTMLCanvasElement>;
   @ViewChild('pdfContainter', { static: true }) pdfContainter!: ElementRef<HTMLDivElement>;
+
   @ViewChild('InputNumber', { static: false }) inputNumber!: ElementRef<HTMLInputElement>;
-
-
   private pdfDocument: any = null;
   maxPages = 0;
   InputNumber: number = 0;
@@ -46,24 +50,41 @@ export class ComicReaderComponent implements OnInit, OnChanges {
 
   constructor(
     private route: ActivatedRoute,
-    private appService: AppService
-  ) {
+    private appService: AppService,
+    private snackBar:MatSnackBar,
+    private userStoreService: UserStoreService
+
+  )
+  {
     pdfjsLib.GlobalWorkerOptions.workerSrc = '../../assets/pdf.worker.mjs';
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     const comicId = this.route.snapshot.paramMap.get('id');
+    this.userStoreService.getUser().subscribe(user=>{
+      this.currentUserId = user?.id ||"";
+    })
     if (comicId) {
       this.comicId = comicId;
       this.loadComicData(comicId);
+      this.pdfUrl = await this.appService.getComicUrl(comicId);
+      console.log('PDF URL:', this.pdfUrl);
+    }
+    if(this.currentUserId){
+        this.appService.getSaveComicPage(this.currentUserId,this.comicId).then(Number=>{
+          if (Number !== undefined && Number !== null) {
+            this.pageNumber =  Number;
+          } else {
+            this.pageNumber = 1;
+          }
+        })
     }
     if (this.pdfUrl) {
       this.loadPdf();
     }
+
   }
-  ngAfterViewInit(): void {
-    document.addEventListener('fullscreenchange', this.fullscreenHandler);
-  }
+
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['pdfUrl'] && !changes['pdfUrl'].firstChange) {
@@ -121,7 +142,7 @@ export class ComicReaderComponent implements OnInit, OnChanges {
       };
 
       await page.render(renderContext).promise;
-
+      this.pdfLoaded = true;
     } catch (error) {
       console.error('Error al renderizar la página:', error);
     }
@@ -135,7 +156,7 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   }
 
   async prevPage(): Promise<void> {
-    if (this.pageNumber > 0) {
+    if (this.pageNumber > 1) {
       this.pageNumber--;
       this.renderPage(this.pageNumber);
     }
@@ -155,9 +176,9 @@ export class ComicReaderComponent implements OnInit, OnChanges {
   }
 
   pageChangeOnClick(evt: MouseEvent, pdfContainter: HTMLDivElement) {
-    if (evt.pageX >= pdfContainter.clientWidth *(2/ 3)) {
+    if (evt.pageX >= pdfContainter.clientWidth/ 2) {
       this.nextPage();
-    } else if (evt.pageX <= pdfContainter.clientWidth *(1/ 3)) {
+    } else if (evt.pageX <= pdfContainter.clientWidth/ 2) {
       this.prevPage();
     }
   }
@@ -188,4 +209,9 @@ export class ComicReaderComponent implements OnInit, OnChanges {
     let number =this.inputNumber.nativeElement.value.replace(/\D/g, '');
     this.inputNumber.nativeElement.value = number;
     }
+
+  SaveComicPage() {
+    this.snackBar.open("Pagina Guardada","Cerrar",{duration:2000,panelClass:["pageSaved"]})
+    this.appService.saveComicPage(this.pageNumber, this.currentUserId, this.comicId);
+  }
 }

@@ -7,6 +7,9 @@ import { CommonModule } from '@angular/common';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { News } from '../../models/new';
+import Swal from 'sweetalert2';
+import {ClipboardService} from '../../../../backend/src/services/copy-link-service';
+import {ThemeService} from '../../../../backend/src/services/theme.service';
 
 @Component({
   selector: 'app-article-page',
@@ -21,15 +24,22 @@ import { News } from '../../models/new';
 })
 export class ArticlePageComponent implements OnInit, OnDestroy {
   news: News | null = null;
+  img_share_light: string = "/share.png";
+  img_share: string = this.img_share_light;
   private destroy$ = new Subject<void>();
+  img_share_dark: string = "/share-dark.png";
+
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private appService: AppService
+    private appService: AppService,
+    private themeService: ThemeService,
+    private clipBoardService: ClipboardService
   ) {}
 
   ngOnInit(): void {
+    this.updateIcons(this.themeService.isDark());
     const newsId = this.route.snapshot.paramMap.get('id');
     if (newsId) {
       this.appService.getNewsById(newsId).pipe(
@@ -54,8 +64,36 @@ export class ArticlePageComponent implements OnInit, OnDestroy {
     }
   }
 
+  private updateIcons(isDark: boolean) {
+    this.img_share = isDark ? this.img_share_dark : this.img_share_light;
+  }
+
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
   }
+
+  copyLink() {
+    this.clipBoardService.copyPageUrl()
+      .then(() => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Link Copied!',
+          text: 'The link has been copied to the clipboard.',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      })
+      .catch(err => {
+        console.error('Error copying:', err);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Failed to copy the link.',
+          timer: 2000,
+          showConfirmButton: false
+        });
+      });
+  }
+
 }

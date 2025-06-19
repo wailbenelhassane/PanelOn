@@ -15,15 +15,16 @@ app.use(cors());
 
 var admin = require("firebase-admin");
 
-const serviceAccount = require('../../environments/panelon-fb7af-firebase-adminsdk-fbsvc-a401247357.json'); // Tu JSON de credenciales
+const serviceAccount = require('../../environments/panelon-fb7af-firebase-adminsdk-fbsvc-a401247357.json');
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
-  storageBucket: 'gs://panelon-fb7af.firebasestorage.app', // Sustituye por el nombre de tu bucket
+  storageBucket: 'gs://panelon-fb7af.firebasestorage.app',
 });
 
 
 const bucket = admin.storage().bucket();
+
 
 // @ts-ignore
 app.post('/check-nsfw', upload.single('file'), async (req: Request, res: Response) => {
@@ -47,10 +48,8 @@ app.post('/check-nsfw', upload.single('file'), async (req: Request, res: Respons
       console.error('stderr:', stderr);
       return res.status(500).json({ error: 'PDF conversion failed' });
     }
-    console.log('stdout:', stdout);
 
-    const python = spawn('C:\\Users\\Carlos Ruano\\WebstormProjects\\PanelOn\\.venv\\Scripts\\python.EXE', ['src/nsfw-backend/src/nsfw_check.py', outputDir]);
-
+    const python = spawn('.venv/Scripts/python.exe', ['src/nsfw-backend/src/nsfw_check.py', outputDir]);
 
     let output = '';
     python.stdout.on('data', (data) => output += data.toString());
@@ -58,16 +57,38 @@ app.post('/check-nsfw', upload.single('file'), async (req: Request, res: Respons
 
     python.on('close', (code) => {
       try {
-        const result = JSON.parse(output);
-        res.json(result);
-        console.log('Resultado del análisis NSFW:', result);
+        const jsonMatch = output.match(/{.*}/);
+        if (jsonMatch) {
+          const result = JSON.parse(jsonMatch[0]);
+
+          let adjustedPegi = pegi;
+
+          if (result.violence) {
+            adjustedPegi = '16';
+          } else if (result.nsfw && result.pegi) {
+            adjustedPegi = result.pegi;
+          } else if (!result.nsfw && !result.violence && result.pegi) {
+            adjustedPegi = result.pegi || pegi;
+          }
+
+
+          res.json({
+            nsfw: result.nsfw,
+            violence: result.violence,
+            pegi: adjustedPegi
+          });
+        } else {
+          throw new Error('No JSON found in the output');
+        }
       } catch (e) {
         console.error('Error parseando la salida de Python:', output);
         res.status(500).json({ error: 'Error analizando resultados NSFW' });
       }
     });
+
   });
 });
+
 
 const uploadFile = multer({ dest: '../uploads' });
 
@@ -81,8 +102,8 @@ app.post('/upload', upload.single('file'), async (req: Request, res: Response) =
     state,
     pegi,
     ['genre[]']: genresRaw,
+    author_id,
   } = req.body;
-
   const rawGenres = req.body.genre;
   const genre = Array.isArray(rawGenres) ? rawGenres : [rawGenres];
 
@@ -90,27 +111,26 @@ app.post('/upload', upload.single('file'), async (req: Request, res: Response) =
     return res.status(400).json({ error: 'Campos obligatorios faltantes.' });
   }
 
-  console.log('✅ Recibido para subida final:');
-  console.log({ title, author, synopsis, state, pegi, genre, file: pdfPath });
   const destination = `uploads/${title}.pdf`;
   await bucket.upload(pdfPath, {
     destination
   });
 
-  const coverPath = path.join(__dirname, '../output/preview.jpg');
-
+  const coverPath = path.join(__dirname, '../preview/preview.jpg');
   if (fs.existsSync(coverPath)) {
     await bucket.upload(coverPath, {
       destination: `covers/${title}.jpg`
     });
-
-    // Eliminar localmente tras subir
-    fs.unlinkSync(coverPath);
+    if (fs.existsSync(coverPath)) {
+      fs.unlinkSync(coverPath);
+    } else {
+      console.warn(`⚠️ El archivo ${coverPath} no existe al intentar borrarlo.`);
+    }
   }
 
   await bucket.file(`covers/${title}.jpg`).makePublic();
   const publicUrl = `https://storage.googleapis.com/${bucket.name}/covers/${title}.jpg`;
-
+  const comicUrl = `/uploads/${title}.pdf`;
   const comicId = await addComic({
     title,
     author,
@@ -119,16 +139,36 @@ app.post('/upload', upload.single('file'), async (req: Request, res: Response) =
     pegi,
     genre,
     cover: publicUrl,
-    published: new Date().toISOString().split('T')[0]
+    published: new Date().toISOString().split('T')[0],
+    uploadUrl: publicUrl,
+    comicUrl: comicUrl,
+    author_id: author_id
   });
   res.json({
     message: 'Contenido subido correctamente.',
     comicId: comicId
   });
-
 });
 
+app.use('/uploads', express.static(path.resolve('src/nsfw-backend/uploads')));
 
+app.get('/get-images', (req: Request, res: Response) => {
+  const dirPath = path.resolve('src/nsfw-backend/uploads');
+
+  // @ts-ignore
+  fs.readdir(dirPath, (err, files) => {
+    if (err) {
+      console.error('❌ Error leyendo uploads:', err);
+      return res.status(500).json({ error: 'No se pudieron obtener las imágenes' });
+    }
+
+    const imageUrls = files
+      .filter(file => /\.(jpg|jpeg|png)$/i.test(file))
+      .map(file => `http://localhost:${port}/uploads/${file}`);
+
+    res.json(imageUrls);
+  });
+});
 
 app.listen(port, () => {
   console.log(`🚀 Server is running on http://localhost:${port}`);
@@ -137,7 +177,6 @@ app.listen(port, () => {
 export async function addComic(comic: any): Promise<string> {
   const db = admin.firestore();
   const docRef = await db.collection('comics').add(comic);
-  console.log('📚 Comic añadido a Firestore con ID:', docRef.id);
   return docRef.id;
 }
 

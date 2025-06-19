@@ -1,15 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
 import { NgClass, NgForOf, NgIf } from '@angular/common';
-import { ButtonComponent } from '../../components/button/button.component';
 import { HttpClient } from '@angular/common/http';
 import { AppService } from '../../app.service';
 import {uploadComicService} from '../../../../backend/src/services/upload-comic.service';
+import {TranslateModule} from '@ngx-translate/core';
+import {Auth, onAuthStateChanged} from '@angular/fire/auth';
+import {UsersService} from '../../services/firebase/interactable/users.service';
+import {UserStoreService} from '../../../../backend/src/services/user-store';
+import {NotifyService} from '../../services/notify.service';
+import {firstValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-upload-form',
   standalone: true,
-  imports: [FormsModule, NgForOf, NgIf, ButtonComponent, NgClass],
+  imports: [FormsModule, NgForOf, NgIf, NgClass, TranslateModule],
   templateUrl: './upload-form.component.html',
   styleUrls: ['./upload-form.component.scss']
 })
@@ -34,13 +39,27 @@ export class UploadFormComponent implements OnInit {
   uploadSuccess = false;
   uploadError = false;
   rating: string =  "0";
+  imagePreviews: string[] = [];
+  modalVisible = false;
+  uid: string  = '';
+  violenceDetected = false;
 
-  constructor(private http: HttpClient, private AppService: AppService, private uploadService: uploadComicService) {}
+  constructor(private http: HttpClient, private AppService: AppService,
+              private uploadService: uploadComicService,
+              private auth: Auth,
+              private usersService: UsersService,
+              private notifyService: NotifyService) {}
 
 
   ngOnInit() {
     this.AppService.getGenres().subscribe(result => {
       this.genre = result.map(genre => genre.name);
+    });
+    this.closeModal();
+    onAuthStateChanged(this.auth, (user) => {
+      if (user) {
+        this.uid = user.uid;
+      }
     });
   }
 
@@ -58,7 +77,6 @@ export class UploadFormComponent implements OnInit {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length) {
-      this.loadingStatus = null;
       const file = input.files[0];
       if (file.size > 100000000) {
         this.isSizeValid = false;
@@ -77,14 +95,26 @@ export class UploadFormComponent implements OnInit {
           formData.append('file', this.selectedFile!);
           // @ts-ignore
           formData.append('pegi', this.selectedPegi);
-
-          this.http.post<{ nsfw: boolean, pegi?: string }>('http://localhost:3000/check-nsfw', formData)
+          formData.append('author_id', this.uid);
+          this.http.post<{ nsfw: boolean, pegi?: string, violence?: boolean }>('http://localhost:3000/check-nsfw', formData)
             .subscribe({
               next: (res) => {
                 this.nsfwResult = res;
                 this.loadingStatus = res.nsfw ? 'nsfw' : 'clean';
                 this.isAnalyzingFile = false;
-                this.selectedPegi = this.nsfwResult.pegi;
+
+
+                if (res.violence) {
+                  this.selectedPegi = '16';
+                  this.violenceDetected = true;
+                  this.getUploadedImages();
+                } else if (res.nsfw && res.pegi) {
+                  this.selectedPegi = res.pegi;
+                }
+
+                if (this.nsfwResult.nsfw) {
+                  this.getUploadedImages();
+                }
               },
               error: (err) => {
                 this.isAnalyzingFile = false;
@@ -125,10 +155,10 @@ export class UploadFormComponent implements OnInit {
       formData.append('author', this.author);
       formData.append('synopsis', this.synopsis);
       formData.append('state', this.state);
-      // @ts-ignore
-      formData.append('pegi', this.selectedPegi);
+      formData.append('pegi', this.selectedPegi || '');
       this.selectedGenres.forEach(genre => formData.append('genre', genre));
       formData.append('file', this.selectedFile!);
+      formData.append('author_id', this.uid);
 
       this.isUploadingFile = true;
 
@@ -137,9 +167,20 @@ export class UploadFormComponent implements OnInit {
           this.isUploadingFile = false;
           this.uploadSuccess = true;
           this.uploadService.uploadComic(res.comicId);
+
+          // ✅ Aquí llamamos al servicio de usuario
+          firstValueFrom(this.usersService.get(this.uid))
+            .then((user) => {
+              // ✅ Ahora podemos acceder al email y name
+              console.log('Usuario recuperado:', user);
+              this.notifyService.sendNotification(user.email, user.name);
+            })
+            .catch((error) => {
+              console.error('Error al obtener el usuario:', error);
+            });
+
           form.resetForm();
           this.resetState();
-          console.log(this.selectedGenre)
         },
         error: (error) => {
           this.isUploadingFile = false;
@@ -150,6 +191,7 @@ export class UploadFormComponent implements OnInit {
       });
     }
   }
+
 
 
   resetState(): void {
@@ -167,6 +209,21 @@ export class UploadFormComponent implements OnInit {
     this.isSizeValid = true;
     this.nsfwResult = null;
     this.filePreview = false;
+    this.violenceDetected = false;
+  }
+
+
+  getUploadedImages(): void {
+    this.http.get<string[]>('http://localhost:3000/get-images')
+      .subscribe({
+        next: (imageUrls) => {
+          this.imagePreviews = imageUrls;
+        },
+        error: (err) => {
+          console.error('Error al obtener las imágenes:', err);
+          alert('Ocurrió un error al obtener las imágenes.');
+        }
+      });
   }
 
   isPDF(file: File | null): Promise<boolean> {
@@ -202,6 +259,16 @@ export class UploadFormComponent implements OnInit {
   }
 
   getShortFileName(fileName: string | undefined): string {
-    return fileName && fileName.length > 30 ? fileName.substring(0, 30) + '...' : fileName || '';
+    return fileName && fileName.length > 30 ? fileName.substring(0, 15) + '...' : fileName || '';
+  }
+
+  openModal(): void {
+    if ((this.nsfwResult?.nsfw || this.violenceDetected) && this.loadingStatus !== 'loading') {
+      this.modalVisible = true;
+    }
+  }
+
+  closeModal(): void {
+    this.modalVisible = false;
   }
 }
